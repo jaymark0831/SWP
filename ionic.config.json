@@ -1,0 +1,7 @@
+{
+  "name": "swp-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
