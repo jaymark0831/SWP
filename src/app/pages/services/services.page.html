@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true">
+  <ion-grid class="ion-padding" fixed>
+    <ion-row>
+      <ion-col size="12">
+        <h1>Services</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, possimus cumque dicta asperiores dolorem aperiam?
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" size-md="4" size-xs="12" *ngFor="let item of servicesList">
+        <ion-card>
+          <img alt="Silhouette of mountains" [src]="item.img" />
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">{{item.title}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="ion-padding">
+    <ion-fab-button color="light">
+      <ion-icon name="help"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

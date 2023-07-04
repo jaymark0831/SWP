@@ -1,0 +1,50 @@
+<ion-content>
+  <div class="container ion-padding">
+    <div class="login-form">
+
+      <div id="logo">
+        <img src="../../assets/swp.jpg" alt="swp-logo">
+      </div>
+
+      <h1>Create an Account</h1> <br>
+      <div class="flexbox">
+        <div class="one">
+          <ion-input type="text" label="First Name" labelPlacement="floating" fill="outline"></ion-input>
+        </div>
+        <div class="two">
+          <ion-input type="text" label="Last Name" labelPlacement="floating" fill="outline"></ion-input>
+        </div>
+      </div> 
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-input type="number" label="Mobile Number" labelPlacement="floating" fill="outline"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input type="email" placeholder="Your email" label="Email" labelPlacement="floating" fill="outline"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input type="password" placeholder="Your password" label="Password" labelPlacement="floating" fill="outline"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <ion-button expand="block" color="primary">Signup</ion-button>
+
+      <div class="or-container">
+        <div class="or-line"></div>
+        <div class="or-text">or singup with</div>
+        <div class="or-line"></div>
+      </div>
+      
+      <ion-button expand="block"><ion-icon name="logo-google"></ion-icon>Google</ion-button>
+
+      <p id="signup">Already signed up? <a [routerLink]="['/login']">Login</a></p>
+
+    </div>
+  </div>
+</ion-content>

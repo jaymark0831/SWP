@@ -1,0 +1,16 @@
+@media(min-width: 820px) {
+    .bookappbtn {
+        display: inline-block;
+    }
+    ion-fab {
+        display: none;
+    }
+}
+@media(max-width: 820px) {
+    .bookappbtn {
+        display: none;
+    }
+    ion-fab {
+        display: block;
+    }
+}
