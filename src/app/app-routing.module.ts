@@ -6,8 +6,20 @@ import { MenuloginPage } from './pages/menulogin/menulogin.page';
 
 const routes: Routes = [
   {
+    path: 'menu',
+    component: MenuPage
+  },
+  {
+    path: 'menulogin',
+    component: MenuloginPage
+  },
+  {
     path: 'login',
     component: LoginPage
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
   },
   {
     path: 'login',
@@ -18,20 +30,8 @@ const routes: Routes = [
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./pages/menulogin/menulogin.module').then( m => m.MenuloginPageModule)
-  },
-  {
-    path: 'menu',
-    component: MenuPage
-  },
-  {
     path: 'menulogin',
-    component: MenuloginPage
-  },
-  {
-    path: 'menu',
-    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
+    loadChildren: () => import('./pages/menulogin/menulogin.module').then( m => m.MenuloginPageModule)
   }
 ];
 

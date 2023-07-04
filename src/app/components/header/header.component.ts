@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,59 +9,59 @@ export class HeaderComponent  implements OnInit {
 
   @Input()
   title!: string;
-  dropdown = false;
-  dropdownbook = false;
-  selectedCategory = '';
-  selectedCatAcc = '';
+  // dropdown = false;
+  // dropdownbook = false;
+  // selectedCategory = '';
+  // selectedCatAcc = '';
 
-  @ViewChild('accountbtn', { read: ElementRef })
-  accountbtn!: ElementRef;
-  @ViewChild('bookingbtn', { read: ElementRef })
-  bookingbtn!: ElementRef;
+  // @ViewChild('accountbtn', { read: ElementRef })
+  // accountbtn!: ElementRef;
+  // @ViewChild('bookingbtn', { read: ElementRef })
+  // bookingbtn!: ElementRef;
 
   constructor() { }
 
   ngOnInit() {
-    this.selectedCategory='';
-    this.selectedCatAcc='';
+    // this.selectedCategory='';
+    // this.selectedCatAcc='';
   }
 
-  hideDropdown(event: any) {
-    const xTouch = (event.clientX).toFixed(2);
-    const yTouch = (event.clientY).toFixed(2);
+  // hideDropdown(event: any) {
+  //   const xTouch = (event.clientX).toFixed(2);
+  //   const yTouch = (event.clientY).toFixed(2);
 
-    const rect = this.accountbtn.nativeElement.getBoundingClientRect();
-    const topBoundary = rect.top+2;
-    const leftBoundary = rect.left+2;
-    const rightBoundary = rect.right-2;
+  //   const rect = this.accountbtn.nativeElement.getBoundingClientRect();
+  //   const topBoundary = rect.top+2;
+  //   const leftBoundary = rect.left+2;
+  //   const rightBoundary = rect.right-2;
 
-    if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
-      this.dropdown = false;
-    }
-  }
+  //   if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
+  //     this.dropdown = false;
+  //   }
+  // }
 
-  hidebookDropdown(event: any) {
-    const xTouch = (event.clientX).toFixed(2);
-    const yTouch = (event.clientY).toFixed(2);
+  // hidebookDropdown(event: any) {
+  //   const xTouch = (event.clientX).toFixed(2);
+  //   const yTouch = (event.clientY).toFixed(2);
 
-    const rect = this.bookingbtn.nativeElement.getBoundingClientRect();
-    const topBoundary = rect.top + 2;
-    const leftBoundary = rect.left + 2;
-    const rightBoundary = rect.right - 2;
+  //   const rect = this.bookingbtn.nativeElement.getBoundingClientRect();
+  //   const topBoundary = rect.top + 2;
+  //   const leftBoundary = rect.left + 2;
+  //   const rightBoundary = rect.right - 2;
 
-    if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
-      this.dropdownbook = false;
-    }
-  }
+  //   if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
+  //     this.dropdownbook = false;
+  //   }
+  // }
   
-  // Button for dropdown active
-  selectCategory(category: string) {
-    this.selectedCategory = category;
-    // if 
-  }
-  selectCatAcc(category: string) {
-    this.selectedCatAcc = category;
-    // if
-  }
+  // // Button for dropdown active
+  // selectCategory(category: string) {
+  //   this.selectedCategory = category;
+  //   // if 
+  // }
+  // selectCatAcc(category: string) {
+  //   this.selectedCatAcc = category;
+  //   // if
+  // }
 
 }

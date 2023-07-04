@@ -21,25 +21,33 @@ const routes: Routes = [
         loadChildren: () => import('../announcements/announcements.module').then( m => m.AnnouncementsPageModule)
       },
       {
-        path: 'appointment',
-        loadChildren: () => import('../appointment/appointment.module').then( m => m.AppointmentPageModule)
+        path: 'login',
+        loadChildren: () => import('../../login/login.module').then( m => m.LoginPageModule)
       },
       {
-        path: 'bookappointment',
-        loadChildren: () => import('../appointment/bookappointment/bookappointment.module').then( m => m.BookappointmentPageModule)
-      },
-      {
-        path: 'reservation',
-        loadChildren: () => import('../reservation/reservation.module').then( m => m.ReservationPageModule)
-      },
-      {
-        path: 'bookreservation',
-        loadChildren: () => import('../reservation/bookreservation/bookreservation.module').then( m => m.BookreservationPageModule)
-      },
-      {
-        path: 'account',
-        loadChildren: () => import('../account/account.module').then( m => m.AccountPageModule)
+        path: 'signup',
+        loadChildren: () => import('../../signup/signup.module').then( m => m.SignupPageModule)
       }
+      // {
+      //   path: 'appointment',
+      //   loadChildren: () => import('../appointment/appointment.module').then( m => m.AppointmentPageModule)
+      // },
+      // {
+      //   path: 'bookappointment',
+      //   loadChildren: () => import('../appointment/bookappointment/bookappointment.module').then( m => m.BookappointmentPageModule)
+      // },
+      // {
+      //   path: 'reservation',
+      //   loadChildren: () => import('../reservation/reservation.module').then( m => m.ReservationPageModule)
+      // },
+      // {
+      //   path: 'bookreservation',
+      //   loadChildren: () => import('../reservation/bookreservation/bookreservation.module').then( m => m.BookreservationPageModule)
+      // },
+      // {
+      //   path: 'account',
+      //   loadChildren: () => import('../account/account.module').then( m => m.AccountPageModule)
+      // }
     ]
   }
 ];

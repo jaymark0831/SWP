@@ -6,21 +6,39 @@
   </ion-header>
   <ion-content>
 
-    <ion-menu-toggle *ngFor="let item of menuItems">
+    <!-- <ion-menu-toggle *ngFor="let item of menuItems">
       <ion-item button (click)="setTitle(item.title)" [routerLink]="item.path" routerDirection="root"
        routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
         <ion-icon slot="start" [name]="item.icon"></ion-icon>
         {{ item.title }}
       </ion-item>
+    </ion-menu-toggle> -->
+
+    <ion-menu-toggle *ngFor="let item of menuItems" class="ion-margin">
+      <ng-container *ngIf="item.title === 'Login' || item.title === 'Book Now'">
+        <ion-button (click)="setTitle(item.title)" [routerLink]="item.path" routerDirection="root"
+         routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}" 
+         color="primary" expand="block" class="ion-margin-horizontal">
+          {{ item.title }}
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="item.title !== 'Login' && item.title !== 'Book Now'">
+        <ion-item button (click)="setTitle(item.title)" [routerLink]="item.path" routerDirection="root"
+         routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+          <ion-icon slot="start" [name]="item.icon"></ion-icon>
+          {{ item.title }}
+        </ion-item>
+      </ng-container>
     </ion-menu-toggle>
+    
 
   </ion-content>
 </ion-menu>
 
 <!-- default header -->
-<!-- <app-header [title]="title"></app-header> -->
+<app-header [title]="title"></app-header>
 <!-- header login -->
-<app-header-login [title]="title"></app-header-login> 
+<!-- <app-header-login [title]="title"></app-header-login> -->
 
 <ion-router-outlet id="main">
 

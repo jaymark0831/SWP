@@ -25,25 +25,35 @@ export class MenuPage implements OnInit {
       path: '/announcements'
     },
     {
-      title: 'Appointment',
-      icon: 'calendar',
-      path: '/appointment'
+      title: 'Login',
+      icon: '',
+      path: '/login'
     },
     {
-      title: 'Reservation',
-      icon: 'calendar',
-      path: '/reservation'
-    },
-    {
-      title: 'Account',
-      icon: 'person',
-      path: '/account'
-    },
-    {
-      title: 'Logout',
-      icon: 'log-out',
-      path: './login'
+      title: 'Book Now',
+      icon: '',
+      path: '/signup'
     }
+    // {
+    //   title: 'Appointment',
+    //   icon: 'calendar',
+    //   path: '/appointment'
+    // },
+    // {
+    //   title: 'Reservation',
+    //   icon: 'calendar',
+    //   path: '/reservation'
+    // },
+    // {
+    //   title: 'Account',
+    //   icon: 'person',
+    //   path: '/account'
+    // },
+    // {
+    //   title: 'Logout',
+    //   icon: 'log-out',
+    //   path: './login'
+    // }
   ];
 
   title = 'Home';
