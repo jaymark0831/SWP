@@ -4,16 +4,17 @@ import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderLoginComponent } from './header-login/header-login.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, HeaderLoginComponent, FooterComponent],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule
   ],
-  exports: [HeaderComponent, FooterComponent]
+  exports: [HeaderComponent,HeaderLoginComponent, FooterComponent]
 })
 export class SharedComponentsModule { }
