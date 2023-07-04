@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router'; 
 import { LoginPage } from './login/login.page';
 import { MenuPage } from './pages/menu/menu.page';
+import { MenuloginPage } from './pages/menulogin/menulogin.page';
 
 const routes: Routes = [
   {
@@ -18,11 +19,19 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
+    loadChildren: () => import('./pages/menulogin/menulogin.module').then( m => m.MenuloginPageModule)
   },
   {
     path: 'menu',
     component: MenuPage
+  },
+  {
+    path: 'menulogin',
+    component: MenuloginPage
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
   }
 ];
 
