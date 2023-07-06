@@ -15,19 +15,20 @@
   </ion-col>
   <ion-col size="10" class="ion-text-right">
 
-    <ion-button fill="clear" color="dark" routerLink="/menulogin/home" 
-    routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    routerLink="/menulogin/home" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Home
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/menulogin/services" 
-    routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    routerLink="/menulogin/services" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Services
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/menulogin/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    routerLink="/menulogin/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Announcements
     </ion-button>
     <!-- BOOKING  -->

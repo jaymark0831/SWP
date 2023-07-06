@@ -57,10 +57,14 @@ export class HeaderLoginComponent  implements OnInit {
   // Button for dropdown active
   selectCategory(category: string) {
     this.selectedCategory = category;
-    // if 
+    this.selectedCatAcc = '';
   }
   selectCatAcc(category: string) {
     this.selectedCatAcc = category;
-    // if
+    this.selectedCategory = '';
+  }
+  clearSelectedCategory(): void {
+    this.selectedCategory = '';
+    this.selectedCatAcc = ''; 
   }
 }
