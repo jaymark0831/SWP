@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { SharedComponentsModule } from 'src/app/components/shared-components.module';
 
 import { AppointmentPageRoutingModule } from './appointment-routing.module';
 
@@ -13,7 +14,8 @@ import { AppointmentPage } from './appointment.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AppointmentPageRoutingModule
+    AppointmentPageRoutingModule,
+    SharedComponentsModule
   ],
   declarations: [AppointmentPage]
 })

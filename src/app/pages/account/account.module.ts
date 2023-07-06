@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import { SharedComponentsModule } from 'src/app/components/shared-components.module';
+
 import { AccountPageRoutingModule } from './account-routing.module';
 
 import { AccountPage } from './account.page';
@@ -13,7 +15,8 @@ import { AccountPage } from './account.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AccountPageRoutingModule
+    AccountPageRoutingModule,
+    SharedComponentsModule
   ],
   declarations: [AccountPage]
 })

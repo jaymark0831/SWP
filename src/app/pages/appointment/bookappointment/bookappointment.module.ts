@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { SharedComponentsModule } from 'src/app/components/shared-components.module';
+
 
 import { BookappointmentPageRoutingModule } from './bookappointment-routing.module';
 
@@ -13,7 +15,8 @@ import { BookappointmentPage } from './bookappointment.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    BookappointmentPageRoutingModule
+    BookappointmentPageRoutingModule,
+    SharedComponentsModule
   ],
   declarations: [BookappointmentPage]
 })
