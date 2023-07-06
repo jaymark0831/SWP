@@ -60,3 +60,10 @@
     background-color: #f8f9f7;
     // background: url("../../../assets/login-cover3.png");
 }
+
+ion-button.active {
+    /* Apply the desired styles for the active button */
+    background-color: blue;
+    color: white;
+  }
+  

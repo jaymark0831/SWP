@@ -15,17 +15,19 @@
   </ion-col>
   <ion-col size="10" class="ion-text-right">
 
-    <ion-button fill="clear" color="dark" routerLink="/" routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" color="dark" routerLink="/menulogin/home" 
+    routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Home
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/services" routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" color="dark" routerLink="/menulogin/services" 
+    routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Services
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+    <ion-button fill="clear" color="dark" routerLink="/menulogin/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Announcements
     </ion-button>
     <!-- BOOKING  -->
@@ -36,10 +38,10 @@
     </ion-button>
     <!-- dropdown items -->
     <div *ngIf="dropdownbook" class="dropdownbook" (mouseleave)="dropdownbook=false" #dropdownbox1>
-      <ion-item button (click)="dropdownbook=false; selectCategory('appointment')" routerLink="/appointment" routerDirection="root" [queryParams]="{category: 'appointment'}" line="none" [class.active-item]="selectedCategory==='appointment'">
+      <ion-item button (click)="dropdownbook=false; selectCategory('appointment')" routerLink="/menulogin/appointment" routerDirection="root" [queryParams]="{category: 'appointment'}" line="none" [class.active-item]="selectedCategory==='appointment'">
         Appointment
       </ion-item>
-      <ion-item button (click)="dropdownbook=false; selectCategory('reservation')" routerLink="/reservation" routerDirection="root" [queryParams]="{category: 'reservation'}" line="none" [class.active-item]="selectedCategory==='reservation'">
+      <ion-item button (click)="dropdownbook=false; selectCategory('reservation')" routerLink="/menulogin/reservation" routerDirection="root" [queryParams]="{category: 'reservation'}" line="none" [class.active-item]="selectedCategory==='reservation'">
         Reservation
       </ion-item>
     </div>
@@ -51,10 +53,10 @@
     </ion-button>
     <!-- dropdown items -->
     <div *ngIf="dropdown" class="dropdown" (mouseleave)="dropdown=false" #dropdownbox>
-      <ion-item button (click)="dropdown=false; selectCatAcc('settings')" routerLink="/account" routerDirection="root" [queryParams]="{category: 'settings'}" line="none" [class.active-item]="selectedCatAcc==='settings'">
+      <ion-item button (click)="dropdown=false; selectCatAcc('settings')" routerLink="/menulogin/account" routerDirection="root" [queryParams]="{category: 'settings'}" line="none" [class.active-item]="selectedCatAcc==='settings'">
         Settings
       </ion-item>
-      <ion-item button (click)="dropdown=false; selectCatAcc('logout')" routerLink="/login" routerDirection="root" [queryParams]="{category: 'logout'}" line="none" [class.active-item]="selectedCatAcc==='logout'">
+      <ion-item button (click)="dropdown=false; selectCatAcc('logout')"  routerLink="/" routerDirection="root">
         Logout
       </ion-item>
     </div>

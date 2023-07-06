@@ -63,5 +63,4 @@ export class HeaderLoginComponent  implements OnInit {
     this.selectedCatAcc = category;
     // if
   }
-
 }

@@ -12,37 +12,37 @@ export class MenuloginPage implements OnInit {
     {
       title: 'Home',
       icon: 'home',
-      path: '/'
+      path: '/menulogin/home'
     },
     {
       title: 'Services',
       icon: 'book',
-      path: '/services'
+      path: '/menulogin/services'
     },
     {
       title: 'Announcements',
       icon: 'newspaper',
-      path: '/announcements'
+      path: '/menulogin/announcements'
     },
     {
       title: 'Appointment',
       icon: 'calendar',
-      path: '/appointment'
+      path: '/menulogin/appointment'
     },
     {
       title: 'Reservation',
       icon: 'calendar',
-      path: '/reservation'
+      path: '/menulogin/reservation'
     },
     {
       title: 'Account',
       icon: 'person',
-      path: '/account'
+      path: '/menulogin/account'
     },
     {
       title: 'Logout',
       icon: 'log-out',
-      path: './login'
+      path: ''
     }
   ];
 
