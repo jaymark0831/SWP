@@ -1,29 +1,18 @@
 <div align="center">
    
 <h2>Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features</h2>
-> Short blurb about what your product does.
 
-<img src="Shepherd the wedding planner(1).png">
-
-One to two paragraph statement about your product and what it does.
-
+<img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/Shepherd%20the%20wedding%20planner%20(1).png" height="520" width="380">
+<br>
 </div>
 
 ## About the Project
 
-OS X & Linux:
+The online platform called Shepherd the Wedding Planner Management System with Appointment and Reservation capabilities is in charge of conducting professional business venture management. Since the company has been operating for some time, its primary areas of focus have been flower shops and food catering services for weddings and other special occasions. It also provides event planning and other services. The study titled "Shepherd the Wedding Planner: Management System with Appointment and Reservation System" is an extensive project aimed at developing a comprehensive web-based solution for wedding planners. The system provides a range of functionalities to assist wedding planners in managing their appointments and reservations effectively.
 
-```sh
-npm install my-crazy-module --save
-```
+## Build with
 
-Windows:
-
-```sh
-edit autoexec.bat
-```
-
-## Usage example
+<a href="https://ionicframework.com/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
@@ -76,3 +65,10 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
+
+
+
+
+
+
+
