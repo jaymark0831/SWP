@@ -1,9 +1,13 @@
-# Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features
+<div align="center">
+   
+<h2>Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features</h2>
 > Short blurb about what your product does.
+
+<img src="Shepherd the wedding planner(1).png">
 
 One to two paragraph statement about your product and what it does.
 
-
+</div>
 
 ## About the Project
 
