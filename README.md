@@ -38,7 +38,7 @@ npm test
 ```
 ## Contact
 Fullstack Developer
-* [JamelaBaira]
+* [JamelaBaira](https://github.com/JamelaBaira)
 Front-end Developer
 * [Jay Mark Cascalla]
 Front-end Developer
