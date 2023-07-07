@@ -30,17 +30,22 @@ Firebase simplifies the development process by providing pre-built back-end infr
 
 ## Development setup
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+Step by Step in developing project
 
 ```sh
-make install
-npm test
+* install node.js
+* npm install -g @ionic/cli
+* install firebase package
 ```
 ## Contact
 Fullstack Developer
+
 * [JamelaBaira](https://github.com/JamelaBaira)
+
 Front-end Developer
+
 * [Jay Mark Cascalla](https://github.com/jaymark0831)
+
 Front-end Developer
 * []
 
