@@ -2,7 +2,7 @@
    
 <h2>Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features</h2>
 
-<img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/Shepherd%20the%20wedding%20planner%20(1).png" height="520" width="380">
+<img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/Shepherd%20the%20wedding%20planner%20(1).png" height="500" width="380">
 <br>
 </div>
 
@@ -12,7 +12,7 @@ The online platform called Shepherd the Wedding Planner Management System with A
 
 ## Build with
 
-<a href="https://ionicframework.com/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://ionicframework.com/" target="_blank"><img src="" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
