@@ -1,9 +1,9 @@
-# Shepherd the Wedding Planner
+# Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features
 > Short blurb about what your product does.
 
 One to two paragraph statement about your product and what it does.
 
-![](header.png)
+
 
 ## About the Project
 
