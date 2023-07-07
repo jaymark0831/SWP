@@ -40,7 +40,7 @@ npm test
 Fullstack Developer
 * [JamelaBaira](https://github.com/JamelaBaira)
 Front-end Developer
-* [Jay Mark Cascalla]
+* [Jay Mark Cascalla](https://github.com/jaymark0831)
 Front-end Developer
 * []
 
