@@ -12,11 +12,17 @@ The online platform called Shepherd the Wedding Planner Management System with A
 
 ## Build with
 
-<a href="https://ionicframework.com/" target="_blank"><img src="" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://ionicframework.com/" target="_blank"><img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/logo.png" alt="Ionic logo" style="height: 30px !important;width: 80px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
 _For more examples and usage, please refer to the [Wiki][wiki]._
+
+<a href="https://ionicframework.com/" target="_blank"><img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/logo.png" alt="Ionic logo" style="height: 30px !important;width: 80px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+
+
+<a href="https://angular.io/" target="_blank"><img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/logo.png" alt="Ionic logo" style="height: 30px !important;width: 80px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## Development setup
 
