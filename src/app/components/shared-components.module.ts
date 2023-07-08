@@ -5,16 +5,34 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderLoginComponent } from './header-login/header-login.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, HeaderLoginComponent, FooterComponent],
+  declarations: [
+    HeaderComponent, 
+    HeaderLoginComponent, 
+    FooterComponent,
+    LoginComponent,
+    SignupComponent
+  ],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
-  exports: [HeaderComponent,HeaderLoginComponent, FooterComponent]
+  exports: [
+    HeaderComponent,
+    HeaderLoginComponent, 
+    FooterComponent,
+    LoginComponent,
+    SignupComponent,
+    ReactiveFormsModule
+  ]
 })
 export class SharedComponentsModule { }

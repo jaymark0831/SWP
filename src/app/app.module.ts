@@ -14,6 +14,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 
+// import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -25,7 +27,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
-    AppRoutingModule, 
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFireAuthModule,
     AngularFireDatabaseModule,
