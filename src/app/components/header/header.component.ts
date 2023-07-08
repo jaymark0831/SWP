@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -9,59 +11,19 @@ export class HeaderComponent  implements OnInit {
 
   @Input()
   title!: string;
-  // dropdown = false;
-  // dropdownbook = false;
-  // selectedCategory = '';
-  // selectedCatAcc = '';
 
-  // @ViewChild('accountbtn', { read: ElementRef })
-  // accountbtn!: ElementRef;
-  // @ViewChild('bookingbtn', { read: ElementRef })
-  // bookingbtn!: ElementRef;
-
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
-    // this.selectedCategory='';
-    // this.selectedCatAcc='';
+
   }
 
-  // hideDropdown(event: any) {
-  //   const xTouch = (event.clientX).toFixed(2);
-  //   const yTouch = (event.clientY).toFixed(2);
-
-  //   const rect = this.accountbtn.nativeElement.getBoundingClientRect();
-  //   const topBoundary = rect.top+2;
-  //   const leftBoundary = rect.left+2;
-  //   const rightBoundary = rect.right-2;
-
-  //   if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
-  //     this.dropdown = false;
-  //   }
-  // }
-
-  // hidebookDropdown(event: any) {
-  //   const xTouch = (event.clientX).toFixed(2);
-  //   const yTouch = (event.clientY).toFixed(2);
-
-  //   const rect = this.bookingbtn.nativeElement.getBoundingClientRect();
-  //   const topBoundary = rect.top + 2;
-  //   const leftBoundary = rect.left + 2;
-  //   const rightBoundary = rect.right - 2;
-
-  //   if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {
-  //     this.dropdownbook = false;
-  //   }
-  // }
-  
-  // // Button for dropdown active
-  // selectCategory(category: string) {
-  //   this.selectedCategory = category;
-  //   // if 
-  // }
-  // selectCatAcc(category: string) {
-  //   this.selectedCatAcc = category;
-  //   // if
-  // }
+  async openLoginModal() {
+    const modal = await this.modalController.create({
+      component: LoginComponent,
+      cssClass: 'login'
+    });
+    return await modal.present();
+  }
 
 }

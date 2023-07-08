@@ -33,39 +33,10 @@
       Book Now
     </ion-button>
 
-    <ion-button color="warning" routerLink="/login" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+    <ion-button color="warning" routerDirection="root" (click)="openLoginModal()"
+    routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Login
     </ion-button>
-    <!-- BOOKING  -->
-    <!-- <ion-button #bookingbtn (mouseenter)="dropdownbook=true" (mouseleave)="hidebookDropdown($event)" 
-    fill="clear" color="dark" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCategory !== ''" [routerLinkActiveOptions]="{exact: true}">
-      Booking
-      <ion-icon slot="end" [name]="dropdownbook ? 'chevron-down' : 'chevron-up'"></ion-icon>
-    </ion-button> -->
-    <!-- dropdown items -->
-    <!-- <div *ngIf="dropdownbook" class="dropdownbook" (mouseleave)="dropdownbook=false" #dropdownbox1>
-      <ion-item button (click)="dropdownbook=false; selectCategory('appointment')" routerLink="/appointment" routerDirection="root" [queryParams]="{category: 'appointment'}" line="none" [class.active-item]="selectedCategory==='appointment'">
-        Appointment
-      </ion-item>
-      <ion-item button (click)="dropdownbook=false; selectCategory('reservation')" routerLink="/reservation" routerDirection="root" [queryParams]="{category: 'reservation'}" line="none" [class.active-item]="selectedCategory==='reservation'">
-        Reservation
-      </ion-item>
-    </div>
-
-    <ion-button #accountbtn (mouseenter)="dropdown=true" (mouseleave)="hideDropdown($event)" 
-    fill="clear" color="dark" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCatAcc !== ''" [routerLinkActiveOptions]="{exact: true}">
-      Account
-      <ion-icon slot="end" [name]="dropdown ? 'chevron-down' : 'chevron-up'"></ion-icon>
-    </ion-button> -->
-    <!-- dropdown items -->
-    <!-- <div *ngIf="dropdown" class="dropdown" (mouseleave)="dropdown=false" #dropdownbox>
-      <ion-item button (click)="dropdown=false; selectCatAcc('settings')" routerLink="/account" routerDirection="root" [queryParams]="{category: 'settings'}" line="none" [class.active-item]="selectedCatAcc==='settings'">
-        Settings
-      </ion-item>
-      <ion-item button (click)="dropdown=false; selectCatAcc('logout')" routerLink="./login" routerDirection="root" [queryParams]="{category: 'logout'}" line="none" [class.active-item]="selectedCatAcc==='logout'">
-        Logout
-      </ion-item>
-    </div> -->
 
   </ion-col>
 

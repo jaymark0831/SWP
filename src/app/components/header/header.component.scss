@@ -58,5 +58,17 @@
 // }
 .header {
     background-color: #f8f9f7;
-    // background: url("../../../assets/login-cover3.png");
 }
+
+.login {
+    ion-content {
+      --background: red;
+    }
+    
+    .login-modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+  }
+  
