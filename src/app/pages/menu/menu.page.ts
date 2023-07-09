@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MenuController, Platform, ModalController } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { SignupComponent } from 'src/app/components/signup/signup.component';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,15 @@ export class MenuPage implements OnInit {
     const modal = await this.modalController.create({
       component: LoginComponent,
       cssClass: 'modaldesign'
+    });
+    return await modal.present();
+  }
+
+  // Open the signup modal
+  async openSignupModal() {
+    const modal = await this.modalController.create({
+      component: SignupComponent,
+      cssClass: 'signupmodaldesign'
     });
     return await modal.present();
   }

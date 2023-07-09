@@ -7,13 +7,17 @@
 }
 
 @media(min-width:820px) {
-    ion-router-outlet {
-        margin-top: 55px;
+    app-header-login {
+        position: relative;
+        top: 0;
+        z-index: 1;
     }
 }
 
 @media(max-width: 820px) {
-    ion-router-outlet {
-        margin-top: 56px;
+    app-header-login {
+        position: relative;
+        top: 0;
+        z-index: 1;
     }
 }
