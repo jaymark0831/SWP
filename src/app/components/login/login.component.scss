@@ -2,32 +2,20 @@ ion-content {
     --background: transparent;
   }
   
-  .signup-modal-content {
+  .login-modal-content {
     background-color: #fff;
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
   }
   
-  #logo {
-    text-align: center;
-    margin-bottom: 20px;
-  
-    img {
-      max-width: 100px;
-      height: auto;
-    }
-  }
-  
   h1 {
-    text-align: center;
     font-size: 24px;
-    margin-top: 0;
   }
   
   .or-container {
     display: flex;
     align-items: center;
-    margin: 20px 0;
+    // margin: 20px 0;
   }
   
   .or-line {
@@ -50,6 +38,7 @@ ion-content {
       color: #007bff;
       text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
     }
   }
   
@@ -58,5 +47,3 @@ ion-content {
     justify-content: flex-end;
     // padding: 10px;
   }
-  
-  

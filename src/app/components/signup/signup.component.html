@@ -1,10 +1,10 @@
-<ion-content class="modaldesign">
+<ion-content class="signupmodaldesign">
 
-  <!-- <div class="close-button-container">
+  <div class="close-button-container">
     <ion-button (click)="cancel()" fill="clear" class="close-button">
       <ion-icon name="close"></ion-icon>
     </ion-button>
-  </div> -->
+  </div>
 
   <div class="signup-modal-content">
 
@@ -14,63 +14,90 @@
 
     <h1>Create an Account</h1>
 
-    <form [formGroup]="signupForm">
+      <ion-grid class="ion-margin-top">
 
-      <ion-grid>
-        <ion-row>
-          <ion-col sizeMd="6" sizeXs="12">
-            <ion-input type="text" label="First Name" labelPlacement="floating" fill="outline"></ion-input>
-          </ion-col>
-          <ion-col sizeMd="6" sizeXs="12">
-            <ion-input type="text" label="Last Name" labelPlacement="floating" fill="outline"></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>  
-          <ion-col>
-            <ion-input type="number" label="Mobile Number" labelPlacement="floating" fill="outline"></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input 
-              type="email" 
-              label="Email" 
-              labelPlacement="floating" 
-              fill="outline" formControlName="email" 
-              clearInput
-              required>
-            </ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input 
-              type="password" 
-              label="Password" 
-              labelPlacement="floating" 
-              fill="outline" 
-              formControlName="password"
-              clearInput
-              required >
-            </ion-input>
-          </ion-col>
-        </ion-row>
+        <form [formGroup]="signupForm">
+          <ion-row>
+            <ion-col sizeMd="6" sizeXs="12">
+              <ion-item>
+                <ion-input type="text" label="First Name" labelPlacement="floating" clearInput required></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="6" sizeXs="12">
+              <ion-item>
+                <ion-input type="text" label="Last Name" labelPlacement="floating" clearInput required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>  
+            <ion-col>
+              <ion-item>
+                <ion-input type="number" label="Mobile Number" labelPlacement="floating" clearInput required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-input
+                  type="email"
+                  label="Email"
+                  labelPlacement="floating"
+                  formControlName="email"
+                  clearInput
+                  required>
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item class="ion-align-items-center">
+                <ion-input
+                  type="{{ showPassword ? 'text' : 'password' }}"
+                  label="Password"
+                  labelPlacement="floating"
+                  formControlName="password"
+                  required >
+                </ion-input>
+                <ion-icon
+                name="{{ showPassword ? 'eye-off' : 'eye' }}"
+                slot="end"
+                (click)="togglePasswordVisibility()"
+              ></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+       </form>
+
+       <ion-row>
+        <ion-col size="12">
+          <ion-button expand="block" color="primary" (click)="signup()">Signup</ion-button>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col size="12">
+          <div class="or-container">
+            <div class="or-line"></div>
+            <div class="or-text">or singup with</div>
+            <div class="or-line"></div>
+          </div>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col size="12">
+          <ion-button expand="block" color="danger"><ion-icon name="logo-google"></ion-icon>Google</ion-button>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col size="12">
+          <p id="signup" class="ion-no-padding">Already signed up? <a [routerLink]="['/login']">Login</a></p>
+        </ion-col>
+      </ion-row>
+      
+
       </ion-grid>
-
-    </form>
-    
-    <ion-button expand="block" color="primary" (click)="signup()">Signup</ion-button>
-
-    <div class="or-container">
-      <div class="or-line"></div>
-      <div class="or-text">or singup with</div>
-      <div class="or-line"></div>
-    </div>
-    
-    <ion-button expand="block" color="danger"><ion-icon name="logo-google"></ion-icon>Google</ion-button>
-
-    <p id="signup">Already signed up? <a [routerLink]="['/login']">Login</a></p>
-
   </div>
-
 </ion-content>

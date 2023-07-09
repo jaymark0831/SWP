@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { FormBuilder } from '@angular/forms';
+import { ModalController, AlertController } from '@ionic/angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -10,17 +10,28 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class SignupComponent  implements OnInit {
 
+  passwordForm!: FormGroup;
+  showPassword = false;
+
   signupForm = this.formBuilder.group({
     email: [''],
     password: ['']
   })
 
   constructor(
-    // private modalCtrl: ModalController,
+    private modalCtrl: ModalController,
     public formBuilder: FormBuilder,
     public angularFireAuth: AngularFireAuth,
     public alertController: AlertController
-  ) { }
+  ) { 
+    this.passwordForm = this.formBuilder.group({
+      password: ['']
+    })
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   // collect email and password using get method
   get email() {
@@ -79,8 +90,8 @@ export class SignupComponent  implements OnInit {
   //   return await modal.present();
   // }
 
-  // cancel() {
-  //   return this.modalCtrl.dismiss(null, 'cancel');
-  // }
+  cancel() {
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
 
 }
