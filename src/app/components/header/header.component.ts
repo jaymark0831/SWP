@@ -21,7 +21,7 @@ export class HeaderComponent  implements OnInit {
   async openLoginModal() {
     const modal = await this.modalController.create({
       component: LoginComponent,
-      cssClass: 'login'
+      cssClass: 'modaldesign'
     });
     return await modal.present();
   }
