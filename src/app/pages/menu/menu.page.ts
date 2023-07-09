@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController, Platform, ModalController } from '@ionic/angular';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +8,22 @@ import { MenuController, Platform } from '@ionic/angular';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
+
+  constructor (
+    private menuCtrl: MenuController, 
+    private plt: Platform, 
+    private modalController: ModalController
+  ) { }
+
+  // Open the login modal
+  async openLoginModal() {
+    const modal = await this.modalController.create({
+      component: LoginComponent,
+      cssClass: 'modaldesign'
+    });
+    return await modal.present();
+  }
+
 // Side-menu content
   menuItems = [
     {
@@ -23,42 +40,23 @@ export class MenuPage implements OnInit {
       title: 'Announcements',
       icon: 'newspaper',
       path: '/announcements'
-    },
-    {
-      title: 'Login',
-      icon: '',
-      path: '/login'
-    },
-    {
-      title: 'Book Now',
-      icon: '',
-      path: '/signup'
     }
     // {
-    //   title: 'Appointment',
-    //   icon: 'calendar',
-    //   path: '/appointment'
+    //   title: 'Login',
+    //   icon: '',
+    //   click: () => {
+    //     return this.openLoginModal();
+    //   }
     // },
     // {
-    //   title: 'Reservation',
-    //   icon: 'calendar',
-    //   path: '/reservation'
-    // },
-    // {
-    //   title: 'Account',
-    //   icon: 'person',
-    //   path: '/account'
-    // },
-    // {
-    //   title: 'Logout',
-    //   icon: 'log-out',
-    //   path: './login'
+    //   title: 'Book Now',
+    //   icon: '',
+    //   path: '/signup'
     // }
+
   ];
 
   title = 'Home';
-
-  constructor(private menuCtrl: MenuController, private plt: Platform) { }
 
   ngOnInit() {
     const width = this.plt.width();

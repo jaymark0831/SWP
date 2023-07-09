@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-signup',
@@ -31,6 +32,27 @@ export class SignupComponent  implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  // dismiss the signup modal
+  dismissSignupModal(){
+    this.modalCtrl.dismiss().then(() => {
+      // Open the signup modal
+      this.openLoginModal();
+    })
+  }
+
+  // login modal
+  async openLoginModal() {
+    const modal = await this.modalCtrl.create({
+      component: LoginComponent,
+      cssClass: 'modaldesign' // Add your custom CSS class here
+    });
+    return await modal.present();
+  }
+
+  cancel() {
+    return this.modalCtrl.dismiss(null, 'cancel');
   }
 
   // collect email and password using get method
@@ -81,17 +103,5 @@ export class SignupComponent  implements OnInit {
   }
 
   ngOnInit() {}
-
-  // async presentModal() {
-  //   const modal = await this.modalCtrl.create({
-  //     component: SignupComponent,
-  //     cssClass: 'modaldesign' // Add your custom CSS class here
-  //   });
-  //   return await modal.present();
-  // }
-
-  cancel() {
-    return this.modalCtrl.dismiss(null, 'cancel');
-  }
 
 }

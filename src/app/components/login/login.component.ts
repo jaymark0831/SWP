@@ -27,7 +27,8 @@ export class LoginComponent  implements OnInit {
     private modalCtrl: ModalController,
     public formBuilder: FormBuilder,
     public angularFireAuth: AngularFireAuth,
-    public router: Router
+    public router: Router,
+    
     // private formBuilder: FormBuilder
   ) { 
     this.passwordForm = this.formBuilder.group({
@@ -86,6 +87,15 @@ export class LoginComponent  implements OnInit {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
+  // Dismiss the loginmodal
+  dismissLoginModal(){
+    this.modalCtrl.dismiss().then(() => {
+      // Open the signup modal
+      this.openSignupModal();
+    })
+  }
+
+  // signup modal
   async openSignupModal() {
     const modal = await this.modalCtrl.create({
       component: SignupComponent,
