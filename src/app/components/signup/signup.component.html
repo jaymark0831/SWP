@@ -20,19 +20,37 @@
           <ion-row>
             <ion-col sizeMd="6" sizeXs="12">
               <ion-item>
-                <ion-input type="text" label="First Name" labelPlacement="floating" clearInput required></ion-input>
+                <ion-input 
+                  type="text" 
+                  label="First Name" 
+                  labelPlacement="floating" 
+                  formControlName="firstName"
+                  clearInput 
+                  required></ion-input>
               </ion-item>
             </ion-col>
             <ion-col sizeMd="6" sizeXs="12">
               <ion-item>
-                <ion-input type="text" label="Last Name" labelPlacement="floating" clearInput required></ion-input>
+                <ion-input 
+                  type="text" 
+                  label="Last Name" 
+                  labelPlacement="floating" 
+                  formControlName="lastName"
+                  clearInput 
+                  required></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>  
             <ion-col>
               <ion-item>
-                <ion-input type="number" label="Mobile Number" labelPlacement="floating" clearInput required></ion-input>
+                <ion-input 
+                  type="tel" 
+                  label="Mobile Number" 
+                  labelPlacement="floating" 
+                  formControlName="mobileNum"
+                  clearInput 
+                  required></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -68,18 +86,41 @@
               </ion-item>
             </ion-col>
           </ion-row>
-       </form>
+          <ion-row>
+            <ion-col>
+              <ion-item class="ion-align-items-center">
+                <ion-input
+                  type="{{ confirmShowPassword ? 'text' : 'password' }}"
+                  label="Confirm Password"
+                  labelPlacement="floating"
+                  formControlName="confirmPassword"
+                  required >
+                </ion-input>
+                <ion-icon
+                name="{{ confirmShowPassword ? 'eye-off' : 'eye' }}"
+                slot="end"
+                (click)="toggleconfirmPasswordVisibility()"
+              ></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+       
 
-       <ion-row>
-        <ion-col size="12">
-          <ion-button expand="block" color="primary" (click)="signup()">Signup</ion-button>
-        </ion-col>
-       </ion-row>
-       <ion-row>
+          <ion-row>
+            <ion-col size="12" class="signupbtn">
+              <ion-button expand="block" color="primary" (click)="signup()" [disabled]="signupForm.invalid">
+                Signup
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+
+       <!-- <ion-row>
         <ion-col size="12">
           <div class="or-container">
             <div class="or-line"></div>
-            <div class="or-text">or singup with</div>
+            <div class="or-text">or signup with</div>
             <div class="or-line"></div>
           </div>
         </ion-col>
@@ -89,10 +130,10 @@
         <ion-col size="12">
           <ion-button expand="block" color="danger"><ion-icon name="logo-google"></ion-icon>Google</ion-button>
         </ion-col>
-       </ion-row>
+       </ion-row> -->
 
        <ion-row>
-        <ion-col size="12">
+        <ion-col size="12" class="signupbtn">
           <p id="signup" class="ion-no-padding">Already signed up? <a (click)="dismissSignupModal()">Login</a></p>
         </ion-col>
       </ion-row>

@@ -1,10 +1,36 @@
-@media (max-width: 820px) {
-    .bookcolbtn {
-      display: flex;
-      justify-content: center;
-    }
-    .bookbtn {
-      width: 80%;
-    }
-  }
-  
+// @media (max-width: 820px) {
+//     .bookcolbtn {
+//       display: flex;
+//       justify-content: center;
+//     }
+//     .bookbtn {
+//       width: 80%;
+//     }
+// }
+
+.appointmentForm {
+  border: 1px solid rgba(128, 128, 128, 0.388);
+  border-radius: 0 30px 30px 0;
+  border-right: 3px solid rgba(128, 128, 128, 0.388);
+  border-left: 5px solid rgba(128, 128, 128, 0.388);
+}
+.appointmentDetails {
+  border: 2px solid rgba(128, 128, 128, 0.388);
+  border-radius: 0 30px 30px 0;
+  border-left: 0;
+  border-right: 4px solid rgba(128, 128, 128, 0.388);
+}
+
+.bookcolbtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.bookbtn {
+  width: 70%;
+  --background: rgb(248, 89, 48, 0.8);
+  --color: #fff;
+}
+.swp {
+  margin-top: 10px;
+}

@@ -20,7 +20,7 @@
 }
 
 .active-item {
-    border-bottom: 2px solid var(--ion-color-warning);
+    border-bottom: 2px solid #F85930;
 }
 
 // .dropdown {
@@ -58,6 +58,34 @@
 // }
 .header {
     background-color: transparent;
+    position: relative;
+    
+    // background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    // filter: blur(1px);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the opacity and color as needed */
+    
+}
+
+ion-button {
+    --color: #fff;
+}
+
+.bookbtn {
+    --color: #5D5A88;
+    --background: #fff;
+}
+
+.loginbtn {
+    --color: #fff;
+    --background: #F85930;
 }
 
 .login {
@@ -71,4 +99,3 @@
       border-radius: 8px;
     }
   }
-  

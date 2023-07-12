@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ export class HeaderComponent  implements OnInit {
 
   @Input()
   title!: string;
+
+  isScrolled=false;
 
   constructor(private modalController: ModalController) { }
 
@@ -26,4 +29,12 @@ export class HeaderComponent  implements OnInit {
     return await modal.present();
   }
 
+  // signup modal
+  async openSignupModal() {
+    const modal = await this.modalController.create({
+      component: SignupComponent,
+      cssClass: 'signupmodaldesign'
+    });
+    return await modal.present();
+  }
 }

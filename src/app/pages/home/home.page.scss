@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap');
+
 ion-grid {
     --ion-grid-padding: 0;
 }
@@ -11,9 +13,31 @@ ion-grid {
     justify-content: center;
 }
 
-.image-container img {
-  filter: brightness(0.7); /* Adjust the value between 0 and 1 to control the darkness level */
+// .image-container img {
+//   filter: brightness(1);
+// }
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Adjust the opacity as needed */
+  z-index: 1;
 }
+
+// .bordered-div {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   width: 38%;
+//   height: 80%;
+//   border-radius: 0% 100% 100% 0% / 0% 100% 0% 100% ;
+//   background-color: rgba(165,126,87,50);
+//   z-index: 2;
+// }
+
   
 .full-height-image {
     position: absolute;
@@ -24,17 +48,44 @@ ion-grid {
     object-fit: cover;
   }
 
-.cover-title {
-    text-align: center;
-    color: black;
-    z-index: 1;
-  }
+// .cover-title {
+//     text-align: center;
+//     color: black;
+//     z-index: 1;
+//   }
 
-  .cover-title h1 {
-    font-size: 32px;
-  }
+//   .cover-title h1 {
+//     font-size: 32px;
+//   }
 
-  .cover-title h2 {
-    font-size: 26px;
-  }
+//   .cover-title h2 {
+//     font-size: 26px;
+//   }
   
+
+  /* Add these styles to your existing CSS */
+
+.cover-title {
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+
+.cover-title h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
+  // color: rgba(248, 88, 48, 0.694);
+}
+
+.cover-title h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.cover-title p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-family: 'Playfair Display', serif;
+}

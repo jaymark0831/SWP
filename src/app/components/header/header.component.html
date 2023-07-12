@@ -6,34 +6,35 @@
     </ion-buttons>
     <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> 
 
 <!-- Desktop view header -->
-<ion-row class="header ion-align-items-center">
+<ion-row class="header ion-align-items-center  ion-padding">
+  <div class="image-overlay"></div> <!--Image overlay-->
   <ion-col size="2">
-    <img src="../../../assets/swp.jpg" width="70px" alt="logo-swp">
+    <img src="../../../assets/swp.jpg" width="100px" alt="logo-swp">
   </ion-col>
   <ion-col size="10" class="ion-text-right">
 
-    <ion-button fill="clear" color="dark" routerLink="/" routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" routerLink="/" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Home
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/services" routerDirection="root" routerLinkActive="active-item"
+    <ion-button fill="clear" routerLink="/services" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Services
     </ion-button>
 
-    <ion-button fill="clear" color="dark" routerLink="/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+    <ion-button fill="clear" routerLink="/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Announcements
     </ion-button>
 
-    <ion-button color="warning" routerLink="/signup" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+    <ion-button class="bookbtn" shape="round" (click)="openSignupModal()" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Book Now
     </ion-button>
 
-    <ion-button color="warning" routerDirection="root" (click)="openLoginModal()"
+    <ion-button class="loginbtn" shape="round" routerDirection="root" (click)="openLoginModal()"
     routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Login
     </ion-button>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SignupComponent } from '../signup/signup.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -17,19 +18,23 @@ export class LoginComponent  implements OnInit {
   passwordForm!: FormGroup;
   showPassword = false;
 
-  loginForm = this.formBuilder.group({
-    email: [''],
-    password: ['']
-  });
-  
+  // loginForm = this.formBuilder.group({
+  //   email: [''],
+  //   password: ['']
+  // });
 
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
+  })
+  
   constructor (
     private modalCtrl: ModalController,
     public formBuilder: FormBuilder,
     public angularFireAuth: AngularFireAuth,
     public router: Router,
-    
-    // private formBuilder: FormBuilder
+    private alertController: AlertController,
+    public authService: AuthService
   ) { 
     this.passwordForm = this.formBuilder.group({
       password: ['']
@@ -41,32 +46,71 @@ export class LoginComponent  implements OnInit {
   }
 
   //collect email and password using get method
-  get email() {
-    return this.loginForm.get('email');
-  }
-  get password() {
-    return this.loginForm.get('password');
-  }
+  // get email() {
+  //   return this.loginForm.get('email');
+  // }
+  // get password() {
+  //   return this.loginForm.get('password');
+  // }
 
-  async login() {
-    try {
-      const email = this.email?.value;
-      const password = this.password?.value;
-      if (email && password) {
-        const login = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-        this.router.navigateByUrl('/menulogin/home');
-      }
-    } catch (error) {
-      console.dir(error);
-    }
+  // async login() {
+  //   try {
+  //     const email = this.email?.value;
+  //     const password = this.password?.value;
+  //     if (email && password) {
+  //       const login = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
+  //       console.log(login);
+  //       this.router.navigateByUrl('/menulogin/home');
 
-    this.loginForm.reset();
+  //       this.modalCtrl.dismiss();
 
-    // this.alertController.create({
-    //   header: 'Success',
-    //   message: 'Your login is'
-    // })
-  }
+  //       this.alertController.create({
+  //         header: 'Success',
+  //         message: 'Welcome!',
+  //         cssClass: 'alertError',
+  //         buttons: [
+  //           {
+  //             text: 'OK', 
+  //             handler: () => {
+  //               console.log('OK');
+  //             }
+  //           }
+  //         ]
+  //       }).then(response => response.present());
+  //     } else {
+  //       this.alertController.create ({
+  //         header: 'Failed',
+  //         message: 'Login failed!',
+  //         cssClass: 'alertError',
+  //         buttons: [
+  //           {
+  //             text: 'OK', 
+  //             handler: () => {
+  //               console.log('Login Failed');
+  //             }
+  //           }
+  //         ]
+  //       }).then(response => response.present());
+  //     }
+  //   } catch (error) {
+  //     console.dir(error);
+
+  //     this.alertController.create ({
+  //       header: 'Failed',
+  //       message: 'Login failed!',
+  //       cssClass: 'alertError',
+  //       buttons: [
+  //         {
+  //           text: 'OK', 
+  //           handler: () => {
+  //             console.log('Login Failed');
+  //           }
+  //         }
+  //       ]
+  //     }).then(response => response.present());
+  //   }
+  //   this.loginForm.reset();
+  // }
 
   async presentModal() {
     const modal = await this.modalCtrl.create({
@@ -76,12 +120,7 @@ export class LoginComponent  implements OnInit {
     return await modal.present();
   }
 
-  ngOnInit() {
-    // this.loginForm = this.formBuilder.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', [Validators.required, Validators.minLength(6)]],
-    // });
-  }
+  ngOnInit() { }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
@@ -110,23 +149,29 @@ export class LoginComponent  implements OnInit {
   //   this.modalCtrl.dismiss();
   // }
 
-  // Login with Google Button
-  // logInWithGoogle() {
-  //   this.authService.signInWithGoogle().then((res: any) => {
-  //     console.log(res.user);
-  //     this.router.navigateByUrl('/menulogin/home');
-  //   }).catch((error: any) => {
-  //     console.error(error);
-  //   });
-  // }
+  //Login with Google Button
+  logInWithGoogle() {
+    this.authService.signInWithGoogle().then((res: any) => {
+      console.log(res.user);
+      this.modalCtrl.dismiss();
+      this.router.navigateByUrl('/menulogin/home');
+    }).catch((error: any) => {
+      console.error(error);
+    });
+  }
 
-  // logInWithEmailAndPassword() {
-  //   const userData;
-  //   this.authService.signInWithEmailAndPassword().then((res: any) =>{
-  //     this.router.navigateByUrl('/menulogin/home');
-  //   }).catch((error: any) =>{
-  //     console.error(error);
-  //   });
-  // }
+  // Login with Email and Password
+  login() {
+    console.log(this.loginForm.value);
+    const userData = Object.assign(this.loginForm.value, {email: this.loginForm.value.email});
+    
+    this.authService.signInWithEmailAndPassword(userData).then((res: any) =>{
+      console.log(res.user);
+      this.modalCtrl.dismiss();
+      this.router.navigateByUrl('/menulogin/home');
+    }).catch((error: any) =>{
+      console.error(error);
+    });
+  }
 
 }

@@ -8,7 +8,7 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,13 +18,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderLoginComponent, 
     FooterComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,

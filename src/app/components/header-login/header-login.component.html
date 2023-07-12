@@ -10,30 +10,31 @@
 
 <!-- Desktop view header -->
 <ion-row class="header ion-align-items-center">
+    <div class="image-overlay"></div> <!--Image overlay-->
   <ion-col size="2">
     <img src="../../../assets/swp.jpg" width="70px" alt="logo-swp">
   </ion-col>
   <ion-col size="10" class="ion-text-right">
 
-    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    <ion-button fill="clear" (click)="clearSelectedCategory()"
     routerLink="/menulogin/home" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Home
     </ion-button>
 
-    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    <ion-button fill="clear" (click)="clearSelectedCategory()"
     routerLink="/menulogin/services" routerDirection="root" routerLinkActive="active-item"
     [routerLinkActiveOptions]="{exact: true}">
       Services
     </ion-button>
 
-    <ion-button fill="clear" color="dark" (click)="clearSelectedCategory()"
+    <ion-button fill="clear" (click)="clearSelectedCategory()"
     routerLink="/menulogin/announcements" routerDirection="root" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
       Announcements
     </ion-button>
     <!-- BOOKING  -->
     <ion-button #bookingbtn (mouseenter)="dropdownbook=true" (mouseleave)="hidebookDropdown($event)" 
-    fill="clear" color="dark" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCategory !== ''" [routerLinkActiveOptions]="{exact: true}">
+    fill="clear" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCategory !== ''" [routerLinkActiveOptions]="{exact: true}">
       Booking
       <ion-icon slot="end" [name]="dropdownbook ? 'chevron-down' : 'chevron-up'"></ion-icon>
     </ion-button>
@@ -48,7 +49,7 @@
     </div>
 
     <ion-button #accountbtn (mouseenter)="dropdown=true" (mouseleave)="hideDropdown($event)" 
-    fill="clear" color="dark" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCatAcc !== ''" [routerLinkActiveOptions]="{exact: true}">
+    fill="clear" class="dropdown-btn" routerLinkActive="active-item" [class.active-item]="selectedCatAcc !== ''" [routerLinkActiveOptions]="{exact: true}">
       Account
       <ion-icon slot="end" [name]="dropdown ? 'chevron-down' : 'chevron-up'"></ion-icon>
     </ion-button>
