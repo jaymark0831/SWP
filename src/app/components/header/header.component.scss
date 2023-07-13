@@ -23,45 +23,9 @@
     border-bottom: 2px solid #F85930;
 }
 
-// .dropdown {
-//     width: 136px;
-//     height: 100px;
-//     background: #f8f9f7;
-//     position: absolute;
-//     top: 40px;
-//     right: 0;
-//     z-index: 1;
-//     ion-item {
-//         --ion-background-color: #f8f9f7;
-//     }
-//     ion-item:hover {
-//         --ion-item-color: var(--ion-color-warning);
-//     }
-// }
-// .dropdownbook {
-//     width: 135px;
-//     height: 100px;
-//     background: #f8f9f7;
-//     position: absolute;
-//     top: 40px;
-//     right: 115px;
-//     z-index: 1;
-//     ion-item {
-//         --ion-background-color: #f8f9f7;
-//     }
-//     ion-item:hover {
-//         --ion-item-color: var(--ion-color-warning);
-//     }
-// }
-// .dropdown-btn.active {
-//     border-bottom: 2px solid var(--ion-color-warning);
-// }
 .header {
     background-color: transparent;
     position: relative;
-    
-    // background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
-    // filter: blur(1px);
 }
 
 .image-overlay {
@@ -87,15 +51,3 @@ ion-button {
     --color: #fff;
     --background: #F85930;
 }
-
-.login {
-    ion-content {
-      --background: red;
-    }
-    
-    .login-modal-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-    }
-  }

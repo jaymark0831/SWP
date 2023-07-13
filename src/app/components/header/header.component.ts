@@ -13,13 +13,11 @@ export class HeaderComponent  implements OnInit {
   @Input()
   title!: string;
 
-  isScrolled=false;
+  constructor(
+    private modalController: ModalController
+    ) { }
 
-  constructor(private modalController: ModalController) { }
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   async openLoginModal() {
     const modal = await this.modalController.create({
@@ -37,4 +35,5 @@ export class HeaderComponent  implements OnInit {
     });
     return await modal.present();
   }
+  
 }

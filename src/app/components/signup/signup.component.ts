@@ -22,13 +22,9 @@ export class SignupComponent  implements OnInit {
     lastName: new FormControl('', [Validators.required]),
     mobileNum: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    confirmShowPassword: new FormControl('', [Validators.required])
   })
-
-  // signupForm = this.formBuilder.group({
-  //   email: [''],
-  //   password: ['']
-  // })
 
   constructor(
     private modalCtrl: ModalController,
@@ -43,6 +39,7 @@ export class SignupComponent  implements OnInit {
     })
   }
 
+  // View Password
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
@@ -62,7 +59,7 @@ export class SignupComponent  implements OnInit {
   async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: LoginComponent,
-      cssClass: 'modaldesign' // Add your custom CSS class here
+      cssClass: 'modaldesign'
     });
     return await modal.present();
   }
