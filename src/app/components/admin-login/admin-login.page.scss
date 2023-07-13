@@ -1,0 +1,50 @@
+ion-content {
+    place-content: center;
+  }
+  .bgimage {
+    background: url("/assets/images/bgimage.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    place-content: center;
+    display: grid;
+    height: 100vh;
+  }
+  
+  .form {
+    max-width: 500px;
+    background-color: #fff;
+    margin: auto;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 15px 15px 20px #5557;
+    border-radius: 10px;
+  
+    .log {
+      font-size: 24px;
+      text-align: center;
+    }
+  
+    .or-container {
+      display: flex;
+      align-items: center;
+      // margin: 20px 0;
+    }
+    
+    .or-line {
+      flex-grow: 1;
+      background-color: #ccc;
+      height: 1px;
+    }
+  
+  
+  }
+  
+  .logoo {
+    margin: auto;
+  
+    img {
+      width: 150px;
+      height: 100px;
+    }
+  }

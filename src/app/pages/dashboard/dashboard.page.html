@@ -1,0 +1,16 @@
+<ion-split-pane when="md" contentId="menu-content">
+  <ion-menu contentId="menu-content" menuId="menu-content" side="start" class="menu">
+    <div class="header-content">
+      <img src="assets/icon/swp.jpg">
+    </div>
+
+    <ion-content>
+      <ion-item button (click)="setTitle(item.title)" [routerLink]="item.path" routerDirection="root"
+       routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
+        <ion-icon slot="start" [name]="item.icon"></ion-icon>
+        {{ item.title }}
+      </ion-item>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="menu-content"></ion-router-outlet>
+</ion-split-pane>
