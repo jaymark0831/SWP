@@ -14,94 +14,91 @@
     </div>
   </div>
   <ion-grid class="ion-padding" fixed>
+
     <!-- EVENTS -->
-    <ion-row>
-      <ion-col size="12" class="ion-text-center">
-        <h2>Events</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, possimus cumque dicta asperiores dolorem aperiam?
-        </p>
-      </ion-col>
-      <ion-col size="4" size-md="4" sizeXs="12">
-        <ion-card>
-          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-          <ion-card-header>
-            <ion-card-title>Card Title</ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="4" size-md="4" sizeXs="12">
-        <ion-card>
-          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-          <ion-card-header>
-            <ion-card-title>Card Title</ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="4" size-md="4" sizeXs="12">
-        <ion-card>
-          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-          <ion-card-header>
-            <ion-card-title>Card Title</ion-card-title>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
-        </ion-card>
+    <ion-row class="events">
+      <ion-col size="12">
+        <ion-col size="12" class="ion-text-center">
+          <h2>Events</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Id, possimus cumque dicta asperiores dolorem aperiam? Id, possimus cumque dicta
+          </p>
+        </ion-col>
+        <ion-col size="12" size-md="12" sizeXs="12">
+          <swiper-container #swiper
+            class="ion-align-items-center"
+            [slidesPerView]="3"
+            [initialSlides]="1"
+            [loop]="true"
+            [spaceBetween]="5"
+            [pagination]="{clickable: true, dynamicBullets: true}"
+            effect="coverflow">
+              <swiper-slide *ngFor="let image of slideImages">
+                <img [src]="image" alt="slider">
+              </swiper-slide>
+          </swiper-container>
+        </ion-col>
       </ion-col>
     </ion-row>
+    
+    <!-- Info -->
+    <ion-row class="ion-align-items-center ion-justify-content-center info">
+          <div id="background"></div>
+            
+            <ion-col size="5" size-md="8" sizeXs="12" class="ion-no-margin">
+              <img id="img1" src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" width="400px" height="408px" alt="Location">
+              <img id="img2" src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" width="500px" height="295px" alt="Location">
+            </ion-col>
+            <ion-col size="7" size-md="4" sizeXs="12">
+              <h2>Let's Bring Your Ideas To Life</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui fugit magnam animi est, minus quasi hic illo dolorem quidem natus. Tenetur neque fuga distinctio illo ea dolor ratione amet harum!
+              </p>
+            </ion-col>
+          
+    </ion-row>
+    
     <!-- LOCATION -->
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="12">
-        <h2>Location</h2>
-      </ion-col>
-      <ion-col size="6" size-md="4" sizeXs="12">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui fugit magnam animi est, minus quasi hic illo dolorem quidem natus. Tenetur neque fuga distinctio illo ea dolor ratione amet harum!
-        </p>
-      </ion-col>
-      <ion-col size="6" size-md="8" sizeXs="12">
-        <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location">
-      </ion-col>
+          <ion-col size="6" size-md="4" sizeXs="12">
+            <h2>Location</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui fugit magnam animi est, minus quasi hic illo dolorem quidem natus. Tenetur neque fuga distinctio illo ea dolor ratione amet harum!
+            </p>
+          </ion-col>
+          <ion-col size="6" size-md="8" sizeXs="12">
+            <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location">
+          </ion-col>
     </ion-row>
+
     <!-- FAQ -->
     <ion-row>
-      <ion-col size="12">
-        <h2>Frequently Asked Questions</h2>
-      </ion-col>
-      <ion-col size="12">
-        <ion-accordion-group [multiple]="true" [value]="['']">
-          <ion-accordion value="first">
-            <ion-item slot="header" color="light">
-              <ion-label>First Accordion</ion-label>
-            </ion-item>
-            <div class="ion-padding" slot="content">First Content</div>
-          </ion-accordion>
-          <ion-accordion value="second">
-            <ion-item slot="header" color="light">
-              <ion-label>Second Accordion</ion-label>
-            </ion-item>
-            <div class="ion-padding" slot="content">Second Content</div>
-          </ion-accordion>
-          <ion-accordion value="third">
-            <ion-item slot="header" color="light">
-              <ion-label>Third Accordion</ion-label>
-            </ion-item>
-            <div class="ion-padding" slot="content">Third Content</div>
-          </ion-accordion>
-        </ion-accordion-group>
+      <ion-col>
+        <ion-col size="12">
+          <h2>Frequently Asked Questions</h2>
+        </ion-col>
+        <ion-col size="12">
+          <ion-accordion-group [multiple]="true" [value]="['']">
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <ion-label>First Accordion</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">First Content</div>
+            </ion-accordion>
+            <ion-accordion value="second">
+              <ion-item slot="header" color="light">
+                <ion-label>Second Accordion</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">Second Content</div>
+            </ion-accordion>
+            <ion-accordion value="third">
+              <ion-item slot="header" color="light">
+                <ion-label>Third Accordion</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">Third Content</div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
       </ion-col>
     </ion-row>
   </ion-grid>
