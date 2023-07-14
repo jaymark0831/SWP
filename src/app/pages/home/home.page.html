@@ -19,22 +19,24 @@
     <ion-row class="events">
       <ion-col size="12">
         <ion-col size="12" class="ion-text-center">
-          <h2>Events</h2>
+          <h1 class="title-h1">Events</h1>
+          <h4>
+            Celebrate your special day with us.
+          </h4>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Id, possimus cumque dicta asperiores dolorem aperiam? Id, possimus cumque dicta
+            Whether you're hosting a wedding, a birthday party, or any other milestone event, <br> our dedicated team of expert planners is here to turn your vision into a reality. 
           </p>
         </ion-col>
         <ion-col size="12" size-md="12" sizeXs="12">
           <swiper-container #swiper
             class="ion-align-items-center"
             [slidesPerView]="3"
-            [initialSlides]="1"
             [loop]="true"
             [spaceBetween]="5"
             [pagination]="{clickable: true, dynamicBullets: true}"
             effect="coverflow">
               <swiper-slide *ngFor="let image of slideImages">
-                <img [src]="image" alt="slider">
+                <img [src]="image" alt="slider" width="362px" height="271">
               </swiper-slide>
           </swiper-container>
         </ion-col>
@@ -46,13 +48,13 @@
           <div id="background"></div>
             
             <ion-col size="5" size-md="8" sizeXs="12" class="ion-no-margin">
-              <img id="img1" src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" width="400px" height="408px" alt="Location">
-              <img id="img2" src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" width="500px" height="295px" alt="Location">
+              <img id="img1" src="../../../assets/1.jpg" width="400px" height="408px" alt="Location">
+              <img id="img2" src="../../../assets/4.jpg" width="500px" height="295px" alt="Location">
             </ion-col>
-            <ion-col size="7" size-md="4" sizeXs="12">
-              <h2>Let's Bring Your Ideas To Life</h2>
+            <ion-col size="7" size-md="4" sizeXs="12" class="ion-no-padding">
+              <h2 id="ltby">Let's Bring Your Ideas To Life</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui fugit magnam animi est, minus quasi hic illo dolorem quidem natus. Tenetur neque fuga distinctio illo ea dolor ratione amet harum!
+                Transform your vision into reality. Let us bring your ideas to life and create cherished memories that will be treasured for years to come.
               </p>
             </ion-col>
           
@@ -60,14 +62,17 @@
     
     <!-- LOCATION -->
     <ion-row class="ion-align-items-center ion-justify-content-center">
+      <div id="background"></div>
           <ion-col size="6" size-md="4" sizeXs="12">
-            <h2>Location</h2>
+            <h1 class="title-h1">Location</h1>
+            <h6> Shepherd The Wedding Planner</h6>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui fugit magnam animi est, minus quasi hic illo dolorem quidem natus. Tenetur neque fuga distinctio illo ea dolor ratione amet harum!
+              Q38F+C5Q Don Florencio Village, Gov. Antonio Carpio Rd, Batangas, 4200 Batangas
             </p>
           </ion-col>
           <ion-col size="6" size-md="8" sizeXs="12">
-            <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location">
+            <!-- <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location"> -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d564.2807602168228!2d121.0728418178167!3d13.766149557218776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd055167f734bb%3A0x27d57ad9269483e3!2sShepherd%20The%20Wedding%20Planner!5e0!3m2!1sen!2sph!4v1689220299582!5m2!1sen!2sph" width="730" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </ion-col>
     </ion-row>
 
@@ -75,27 +80,35 @@
     <ion-row>
       <ion-col>
         <ion-col size="12">
-          <h2>Frequently Asked Questions</h2>
+          <h1 class="title-h1">Frequently Asked Questions</h1>
         </ion-col>
         <ion-col size="12">
           <ion-accordion-group [multiple]="true" [value]="['']">
             <ion-accordion value="first">
               <ion-item slot="header" color="light">
-                <ion-label>First Accordion</ion-label>
+                <ion-label>What types of occasions do you specialize in planning?</ion-label>
               </ion-item>
-              <div class="ion-padding" slot="content">First Content</div>
+              <div class="ion-padding" slot="content">
+                At Shepherd the Wedding Planner, we specialize in planning a wide range of occasions, including weddings, birthdays, anniversaries, corporate events, and more. Our experienced team is well-equipped to handle both intimate gatherings and large-scale celebrations, ensuring that every event is meticulously planned and flawlessly executed.
+              </div>
             </ion-accordion>
             <ion-accordion value="second">
               <ion-item slot="header" color="light">
-                <ion-label>Second Accordion</ion-label>
+                <ion-label>What services do you offer for occasion event planning?</ion-label>
               </ion-item>
-              <div class="ion-padding" slot="content">Second Content</div>
+              <div class="ion-padding" slot="content">
+                We offer a comprehensive range of services to meet your occasion event planning needs. From initial concept design and venue selection to theme development, décor arrangement, vendor coordination, and on-site management, we handle every aspect of the planning process. Our goal is to alleviate the stress and burden of event planning, allowing you to relax and enjoy your special day while we take care of the logistics.
+              </div>
             </ion-accordion>
             <ion-accordion value="third">
               <ion-item slot="header" color="light">
-                <ion-label>Third Accordion</ion-label>
+                <ion-label>
+                  Can you work with a specific budget for our occasion event?
+                </ion-label>
               </ion-item>
-              <div class="ion-padding" slot="content">Third Content</div>
+              <div class="ion-padding" slot="content">
+                Absolutely! We understand that every client has a unique budget for their occasion event. Our team is skilled at creating tailored event plans that align with your financial parameters, without compromising on quality or creativity. We will work closely with you to understand your budgetary requirements and find innovative solutions to deliver an exceptional event within your specified budget. Our commitment is to ensure that you receive the best value for your investment, while still bringing your vision to life.
+              </div>
             </ion-accordion>
           </ion-accordion-group>
         </ion-col>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -9,11 +10,12 @@ import { IonicSlides } from '@ionic/angular';
 export class HomePage implements OnInit {
 
   slideImages = [
-    '../../../assets/home-cover1.png',
-    '../../../assets/home-cover1.png',
-    '../../../assets/home-cover1.png',
-    '../../../assets/home-cover1.png',
-    '../../../assets/home-cover1.png'
+    '../../../assets/1.jpg',
+    '../../../assets/2.jpg',
+    '../../../assets/3.jpg',
+    '../../../assets/1.jpg',
+    '../../../assets/2.jpg',
+    '../../../assets/3.jpg'
   ];
 
   constructor() { }
@@ -21,6 +23,19 @@ export class HomePage implements OnInit {
   ngOnInit() {}
 
   swiperModules = [IonicSlides];
+
+  // getLoopImages(): string[] {
+  //   let currentIndex = 0;
+  //   const loopImages = [];
+  //   const loopLimit = 10;
+  
+  //   for (let i = 0; i < loopLimit; i++) {
+  //     loopImages.push(this.slideImages[currentIndex]);
+  //     currentIndex = (currentIndex + 1) % this.slideImages.length;
+  //   }
+    
+  //   return loopImages;
+  // }
 
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
