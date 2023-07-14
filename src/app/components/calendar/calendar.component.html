@@ -1,0 +1,48 @@
+<ion-content class="modaldesign">
+
+  <div class="close-button-container">
+    <ion-button (click)="closeModal()" fill="clear" class="close-button">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center"> 
+          <h4>Date</h4>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center"> 
+          <h4>Time</h4>
+        </ion-col>
+  
+        <ion-col size="6" sizeMd="6" sizeXs="12">
+          <ion-datetime #datetime 
+            presentation="date" 
+            [isDateEnabled]="currentMonth"
+            hourCycle="h12"
+            (ionChange)="onDateChange($event)" >
+          </ion-datetime>
+          <ion-row class="ion-justify-content-evenly ion-margin-bottom ion-padding-bottom">
+            <ion-button color="danger" (click)="clearSelection()">Clear</ion-button>
+            <ion-button color="primary" (click)="confirmSelection()">Confirm</ion-button>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="4" sizeMd="4" sizeXs="10" push="1" *ngIf="availableTimes.length > 0">
+          <ion-list  *ngFor="let time of availableTimes">     
+              <ion-button [class.active]="activeTime === time" class="centered-button" fill="outline" (click)="onTimeButtonClick(time)">
+                {{ time }}
+              </ion-button>  
+          </ion-list>
+        </ion-col>
+        <ion-col size="7">  
+          <ion-item>   
+            <ion-icon name="ellipse" size="small" color="success"></ion-icon>
+            <ion-label>Available</ion-label>   
+            <ion-icon name="ellipse" size="small" color="danger"></ion-icon>
+            <ion-label>Reserved</ion-label>
+          </ion-item> 
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
