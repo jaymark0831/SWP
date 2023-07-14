@@ -16,14 +16,16 @@ export class SignupComponent  implements OnInit {
   passwordForm!: FormGroup;
   showPassword = false;
   confirmShowPassword = false;
+  passwordMatch = false; // Added variable for password match check
 
   signupForm: FormGroup = new FormGroup({
+    // uid: new FormControl(''), //Added for firestore
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNum: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    confirmShowPassword: new FormControl('', [Validators.required])
+    confirmPassword: new FormControl('', [Validators.required])
   })
 
   constructor(
@@ -45,6 +47,13 @@ export class SignupComponent  implements OnInit {
   }
   toggleconfirmPasswordVisibility() {
     this.confirmShowPassword = !this.confirmShowPassword;
+  }
+
+  // Check if passwords match
+  checkPasswordMatch() {
+    const password = this.signupForm.get('password')?.value;
+    const confirmPassword = this.signupForm.get('confirmPassword')?.value;
+    this.passwordMatch = password === confirmPassword;
   }
 
   // dismiss the signup modal
@@ -116,6 +125,7 @@ export class SignupComponent  implements OnInit {
   // }
 
   signup() {
+
     const userData = Object.assign(this.signupForm.value, {email: this.signupForm.value.email});
 
     this.authService.signupWithEmailAndPassword(userData).then((res: any) =>  {
@@ -127,6 +137,13 @@ export class SignupComponent  implements OnInit {
     }).catch((error: any) => {
       console.log(error);
     })
+
+    // Check if passwords match before signing up
+    if (!this.passwordMatch) {
+      // Handle password mismatch error
+      console.log('Passwords do not match');
+      return;
+    }
   }
 
   ngOnInit() {}
