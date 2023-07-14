@@ -2,7 +2,7 @@
    
 <h2>Shepherd the Wedding Planner: Building A Management System with Appointment and Reservation Features</h2>
 
-<img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/Shepherd%20the%20wedding%20planner%20(1).png" height="500" width="380">
+<img src="https://github.com/jaymark0831/ShepherdTheWeddingPlanner/blob/main/Shepherd%20the%20wedding%20planner%20(1).png" height="500" width="390">
 <br>
 </div>
 
