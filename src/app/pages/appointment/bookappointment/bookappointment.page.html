@@ -20,15 +20,15 @@
               </ion-col>
               <!-- modal button calendar -->
               <ion-col size-md="2" size-xs="12" class="ion-justify-content-center">
-                <ion-button fill="outline" class="ion-align-items-center" id="openCalendar">
+                <ion-button fill="outline" class="ion-align-items-center" (click)="openCalendar()">
                   <ion-icon name="calendar-outline"></ion-icon>
                 </ion-button>
               </ion-col>
-              <ion-col size="2">
-                <p>Date: --- </p>
+              <ion-col size="5">
+                <p>Date: <span id="dateSelected"> {{dateSelected}} </span> </p>
               </ion-col>
-              <ion-col size="2">
-                <p>Time: --- </p>
+              <ion-col size="5">
+                <p>Time: <span id="timeSelected"> {{timeSelected}} </span> </p>
               </ion-col>
             </ion-row>
             <ion-row class="ion-margin-top">
@@ -62,10 +62,10 @@
                 <ion-item>
                   <ion-select label="Event" interface="popover" justify="space-between">
                     <ion-item>
-                      <ion-select-option value="1">1</ion-select-option>
+                      <ion-select-option value="weddings">Weddings</ion-select-option>
                     </ion-item>
-                    <ion-select-option value="2">2</ion-select-option>
-                    <ion-select-option value="3">3</ion-select-option>
+                    <ion-select-option value="bday">Birthday</ion-select-option>
+                    <ion-select-option value="anniv">Anniversary</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
@@ -90,19 +90,19 @@
             <ion-col size="9" push="1">
               <ion-item>
                 <ion-icon size="small" name="location" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <p class="location ion-text-wrap">Q38F+C5Q Don Florencio Village, Gov. Antonio Carpio Rd, Batangas, 4200 Batangas</p>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item>
                 <ion-icon size="small" name="time" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-label> {{timeSelected}} </ion-label>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item>
                 <ion-icon size="small" name="calendar" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-label> {{dateSelected}} </ion-label>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">

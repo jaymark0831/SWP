@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
+import { IonDatetime } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bookappointment',
@@ -16,9 +19,26 @@ export class BookappointmentPage implements OnInit {
     mobileNum: new FormControl('', [Validators.required])
   })
 
-  constructor(private modalController: ModalController) { }
+  dateSelected!: string;
+  timeSelected!: string;
 
-  ngOnInit() {}
+  constructor(private modalController: ModalController, private route: ActivatedRoute) { }
+
+  async openCalendar() {
+    const modal = await this.modalController.create({
+      component: CalendarComponent,
+      cssClass: 'calendardesign'
+    });
+    return await modal.present();
+  }
+
+  ngOnInit() {
+    // Retrieve the query parameters from the route
+    this.route.queryParams.subscribe(params => {
+      this.dateSelected = params['date'];
+      this.timeSelected = params['time'];
+    });
+  }
 
 
 }
