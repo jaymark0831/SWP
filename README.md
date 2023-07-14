@@ -40,14 +40,14 @@ Step by Step in developing project
 ## Contact
 Fullstack Developer
 
-* [JamelaBaira](https://github.com/JamelaBaira)
+* [Jamela Baira](https://github.com/JamelaBaira)
 
 Front-end Developer
 
 * [Jay Mark Cascalla](https://github.com/jaymark0831)
 
 Front-end Developer
-* []
+* [Alexandria Amor Gamboa](https://github.com/20-08196)
 
 
 
