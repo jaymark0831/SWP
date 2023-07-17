@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     LoginComponent,
     SignupComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarComponent
   ]
 })
 export class SharedComponentsModule { }

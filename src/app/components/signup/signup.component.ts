@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, AlertController, IonInput } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { LoginComponent } from '../login/login.component';
@@ -17,7 +17,8 @@ export class SignupComponent  implements OnInit {
   showPassword = false;
   confirmShowPassword = false;
   passwordMatch = false; // Added variable for password match check
-
+  inputModel = '';
+  
   signupForm: FormGroup = new FormGroup({
     // uid: new FormControl(''), //Added for firestore
     firstName: new FormControl('', [Validators.required]),
@@ -49,11 +50,26 @@ export class SignupComponent  implements OnInit {
     this.confirmShowPassword = !this.confirmShowPassword;
   }
 
-  // Check if passwords match
-  checkPasswordMatch() {
+  signup() {
+    // Check if passwords match
     const password = this.signupForm.get('password')?.value;
     const confirmPassword = this.signupForm.get('confirmPassword')?.value;
     this.passwordMatch = password === confirmPassword;
+
+    // Check if passwords match before signing up
+    if (!this.passwordMatch) {
+      // Handle password mismatch error
+      console.log('Passwords do not match');
+    }else {
+      this.letSignup();
+    }
+  }
+
+  //combine firstname and lastname for displayname
+  firstNameAndlastName() {
+    const displayName = this.signupForm.get('firstName')?.value + ' ' + this.signupForm.get('lastName')?.value;
+    // console.log(displayName);
+    return displayName.trim(); // Removes any leading or trailing spaces.
   }
 
   // dismiss the signup modal
@@ -124,9 +140,14 @@ export class SignupComponent  implements OnInit {
   //   this.signupForm.reset();
   // }
 
-  signup() {
-
-    const userData = Object.assign(this.signupForm.value, {email: this.signupForm.value.email});
+  letSignup() {
+    const userData = Object.assign(this.signupForm.value, {
+      email: this.signupForm.value.email,
+      displayName: this.firstNameAndlastName(),
+      firstName: this.signupForm.value.firstName, // Call the function to get the display name
+      lastName: this.signupForm.value.lastName, // Call the function to get the display name
+      phoneNumber: this.signupForm.value.mobileNum
+    });
 
     this.authService.signupWithEmailAndPassword(userData).then((res: any) =>  {
       console.log(res);
@@ -137,14 +158,26 @@ export class SignupComponent  implements OnInit {
     }).catch((error: any) => {
       console.log(error);
     })
-
-    // Check if passwords match before signing up
-    if (!this.passwordMatch) {
-      // Handle password mismatch error
-      console.log('Passwords do not match');
-      return;
-    }
   }
+
+  // only numbers for mobilenumber
+  @ViewChild('ionInputEl', { static: true }) ionInputEl!: IonInput;
+
+  onInput(ev: any) {
+    const value = ev.target!.value;
+
+    // Removes non numeric characters
+    const filteredValue = value.replace(/[^0-9]/g, '');
+
+    /**
+     * Update both the state variable and
+     * the component to keep them in sync.
+     */
+    this.ionInputEl.value = this.inputModel = filteredValue;
+  }
+
+  
+  
 
   ngOnInit() {}
 

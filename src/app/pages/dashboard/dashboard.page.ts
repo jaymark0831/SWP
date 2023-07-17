@@ -6,11 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+
   menuItems = [
     {
       title: 'Dashboard',
       icon: 'home',
-      path: '/dashboard/dashboard'
+      path: '/dashboard/admin-dashboard'
     },
     {
       title: 'Appointment',
@@ -45,6 +46,10 @@ export class DashboardPage implements OnInit {
   ];
 
   title = 'Dashboard';
+
+  setTitle(title: any) {
+    this.title = title;
+  }
 
   constructor() { }
 

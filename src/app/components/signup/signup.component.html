@@ -45,6 +45,7 @@
             <ion-col>
               <ion-item>
                 <ion-input 
+                  [value]="inputModel" (ionInput)="onInput($event)" #ionInputEl
                   type="tel" 
                   label="Mobile Number" 
                   labelPlacement="floating" 
@@ -107,6 +108,7 @@
             </ion-col>
           </ion-row>
        
+          <!-- <ion-button (click)="checkPasswordMatch()">click</ion-button> -->
 
           <ion-row>
             <ion-col size="12" class="signupbtn">
@@ -139,6 +141,8 @@
           <p id="signup" class="ion-no-padding">Already signed up? <a (click)="dismissSignupModal()">Login</a></p>
         </ion-col>
       </ion-row>
+
+      <!-- <ion-button (click)="firstNameAndlastName()">click</ion-button> -->
       
 
       </ion-grid>

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AdminAppointmentPageRoutingModule } from './admin-appointment-routing.module';
 
 import { AdminAppointmentPage } from './admin-appointment.page';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminAppointmentPageRoutingModule
+    AdminAppointmentPageRoutingModule,
+    AngularFirestoreModule
   ],
   declarations: [AdminAppointmentPage]
 })

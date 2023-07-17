@@ -9,6 +9,10 @@ const routes: Routes = [
     component: DashboardPage,
     children: [
       {
+        path: 'admin-dashboard',
+        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+      },
+      {
         path: 'admin-appointment',
         loadChildren: () => import('../admin-appointment/admin-appointment.module').then( m => m.AdminAppointmentPageModule)
       },

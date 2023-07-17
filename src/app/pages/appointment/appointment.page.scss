@@ -12,5 +12,36 @@
     }
     ion-fab {
         display: block;
+        ion-button {
+            --background: rgb(248, 89, 48, 0.8);
+            --color: #fff;
+        }
     }
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+ion-item {
+    --border-style: none;
+    ion-input{
+        font-size: small;
+    }
+}
+  
+.list-appointment {
+    display:flex;
+    align-items: center;
+}
+
+.bookappbtn {
+    --background: rgb(248, 89, 48, 0.8);
+    --color: #fff;
 }

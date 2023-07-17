@@ -35,37 +35,37 @@
               <ion-col size="12" class="ion-margin-bottom">
                 <h5>Enter Your Details</h5>
               </ion-col>
-            <form [formGroup]="appointmentForm">
+            <form [formGroup]="appointmentForm" *ngIf="userFirestoreData">
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="First Name" labelPlacement="floating" type="text" formControlName="fname"></ion-input>
+                  <ion-input label="First Name" labelPlacement="floating" type="text" formControlName="firstName" value="{{ userFirestoreData.firstName }}"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Last Name" labelPlacement="floating" type="text" formControlName="lname"></ion-input>
+                  <ion-input label="Last Name" labelPlacement="floating" type="text" formControlName="lastName" value="{{ userFirestoreData.lastName }}"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col size="6"></ion-col>
-              <ion-col size-md="5" size-xs="12">
-                <ion-item>
-                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNum"></ion-input>
+                  <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email" value="{{ userFirestoreData.email }}"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="6"></ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-select label="Event" interface="popover" justify="space-between">
+                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNumber" value="{{ userFirestoreData.phoneNumber }}"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6"></ion-col>
+              <ion-col size-md="5" size-xs="12">
+                <ion-item>
+                  <ion-select formControlName="event" label="Event" interface="popover" justify="space-between">
                     <ion-item>
-                      <ion-select-option value="weddings">Weddings</ion-select-option>
+                      <ion-select-option value="Wedding">Weddings</ion-select-option>
                     </ion-item>
-                    <ion-select-option value="bday">Birthday</ion-select-option>
-                    <ion-select-option value="anniv">Anniversary</ion-select-option>
+                    <ion-select-option value="Birthday">Birthday</ion-select-option>
+                    <ion-select-option value="Anniversary">Anniversary</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
@@ -88,45 +88,52 @@
 
           <ion-row>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Location</ion-label>
                 <ion-icon size="small" name="location" slot="start"></ion-icon>
                 <p class="location ion-text-wrap">Q38F+C5Q Don Florencio Village, Gov. Antonio Carpio Rd, Batangas, 4200 Batangas</p>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Time</ion-label>
                 <ion-icon size="small" name="time" slot="start"></ion-icon>
-                <ion-label> {{timeSelected}} </ion-label>
+                <ion-input value="{{timeSelected}}" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Date</ion-label>
                 <ion-icon size="small" name="calendar" slot="start"></ion-icon>
-                <ion-label> {{dateSelected}} </ion-label>
+                <ion-input value="{{dateSelected}}" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Name</ion-label>
                 <ion-icon size="small" name="person" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-input value="--:--" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Email</ion-label>
                 <ion-icon size="small" name="mail" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-input value="--:--" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Mobile Number</ion-label>
                 <ion-icon size="small" name="call" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-input value="--:--" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
-              <ion-item>
+              <ion-item class="ion-align-items-center">
+                <ion-label position="stacked">Event</ion-label>
                 <ion-icon size="small" name="restaurant" slot="start"></ion-icon>
-                <ion-label>--:--</ion-label>
+                <ion-input value="--:--" readonly></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -134,7 +141,7 @@
           <!-- Book Appointment Button -->
           <ion-row class="bookcolbtn">
             <ion-col size="8" push="1">
-              <ion-button class="bookbtn">Book Appointment</ion-button>
+              <ion-button class="bookbtn" (click)="onSubmit()">Book Appointment</ion-button>
             </ion-col>
           </ion-row>
        

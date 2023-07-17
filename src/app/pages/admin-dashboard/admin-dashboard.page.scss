@@ -1,0 +1,12 @@
+ion-card {
+    margin: 30px;
+    width: 25%;
+    height: 25%;
+}
+
+@media (max-width: 820px) {
+    ion-card{
+        margin: 30px auto;
+        width: 90%;
+    }
+}

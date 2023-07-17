@@ -18,3 +18,21 @@ ion-datetime {
     --background: blue;
     --color: white;
 }
+
+.centered-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .centered-button.available {
+    background-color: green;
+    color: white;
+  }
+  
+  .centered-button.active {
+    background-color: darkgreen;
+  }
+  
+  /* Adjust the styles according to your needs */
+  

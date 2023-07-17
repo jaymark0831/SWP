@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { IonDatetime } from '@ionic/angular';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -10,7 +12,11 @@ import { IonDatetime } from '@ionic/angular';
 
 export class CalendarComponent  implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  constructor(
+    private modalController: ModalController,
+    private appointmentService: AppointmentService,
+    private router: Router
+  ) { }
 
   ngOnInit() {}
 
@@ -25,18 +31,21 @@ export class CalendarComponent  implements OnInit {
 
   currentMonth = (dateString: string) => {
     const date = new Date(dateString);
-    const currentDate = new Date().getUTCDate();
+    // const currentDate = new Date().getUTCDate();
     const currentYear = new Date().getUTCFullYear();
     const currentMonth = new Date().getUTCMonth();
   
     const targetYear = date.getUTCFullYear();
     const targetMonth = date.getUTCMonth();
-    const targetDate = date.getUTCDate();
+    // const targetDate = date.getUTCDate();
   
     /**
      * Enable the date if it is in the current month
      */
-    return currentYear === targetYear && currentMonth === targetMonth && currentDate !== targetDate;
+    return (
+      currentYear === targetYear && currentMonth === targetMonth ||
+      currentYear === targetYear && currentMonth + 1 === targetMonth
+    );
   };
 
   onDateChange(event: any) {
@@ -88,12 +97,25 @@ export class CalendarComponent  implements OnInit {
   confirmSelection() {
 
     // Pass the selected date and time as query parameters in the URL
-    const queryParams = `?date=${encodeURIComponent(
-      this.selectedDate
-    )}&time=${encodeURIComponent(this.selectedTime)}`;
+    // const queryParams = `?date=${encodeURIComponent(
+    //   this.selectedDate
+    // )}&time=${encodeURIComponent(this.selectedTime)}`;
 
     // Redirect to the "bookappointment" page with the query parameters
-    window.location.href = `menulogin/bookappointment${queryParams}`;
+    // window.location.href = `menulogin/bookappointment${queryParams}`;
+    
+    // this.appointmentService.selectedDate = this.selectedDate;
+    // this.appointmentService.selectedTime = this.selectedTime;
+
+     // Pass the selected date and time as query parameters in the URL
+    const queryParams: Params = {
+      date: this.selectedDate,
+      time: this.selectedTime
+    };
+
+    // Redirect to the "bookappointment" page with the query parameters
+    this.router.navigate(['/menulogin/bookappointment'], { queryParams });
+    this.modalController.dismiss();
   }
   
   closeModal() {

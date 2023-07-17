@@ -1,0 +1,61 @@
+ion-card.appointmentCard {
+    // margin: 30px;
+    // width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    --background:linear-gradient(rgba(214, 71, 79, 1), rgba(214, 71, 79, 0.61));
+    --color: #fff;
+    // padding: 15px;
+}
+
+@media (max-width: 820px) {
+    ion-card.appointmentCard{
+        margin: 30px auto;
+        width: 90%;
+    }
+}
+
+// .list-appointment {
+//     height: 150px;
+// }
+
+// ion-card.appointments {
+//     height: 100%;
+// }
+
+// ion-card-subtitle {
+//     display: flex;
+//     flex-direction: column;
+    
+// }
+
+.flex-container {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+ion-item {
+    --border-style: none;
+    ion-input{
+        font-size: small;
+    }
+}
+  
+.list-appointment {
+    display:flex;
+    align-items: center;
+}
+ion-card-header.appointment-header {
+    width: 90%;
+
+    ion-button {
+        padding: 10px;
+    }
+}

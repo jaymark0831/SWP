@@ -30,11 +30,11 @@ export class LoginComponent  implements OnInit {
   
   constructor (
     private modalCtrl: ModalController,
-    public formBuilder: FormBuilder,
-    public angularFireAuth: AngularFireAuth,
-    public router: Router,
+    private formBuilder: FormBuilder,
+    private angularFireAuth: AngularFireAuth,
+    private router: Router,
     private alertController: AlertController,
-    public authService: AuthService
+    private authService: AuthService
   ) { 
     this.passwordForm = this.formBuilder.group({
       password: ['']
@@ -168,10 +168,13 @@ export class LoginComponent  implements OnInit {
     this.authService.signInWithEmailAndPassword(userData).then((res: any) =>{
       console.log(res.user);
       this.modalCtrl.dismiss();
+      this.authService.setUserData(res.user); //Store user data in the authservice
       this.router.navigateByUrl('/menulogin/home');
     }).catch((error: any) =>{
       console.error(error);
     });
+
+
   }
 
 }
