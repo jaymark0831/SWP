@@ -73,11 +73,12 @@ export class BookappointmentPage implements OnInit {
     this.authService.checkAuthentication();
 
     // Retrieve user data from Firestore
-    this.authService.setUserData(this.authService.getUserData());
-    this.authService.getUserFirestoreData().subscribe((data) => {
-      this.userFirestoreData = data;
-    });
-    console.log(this.userFirestoreData);
+    // this.authService.setUserData(this.authService.getUserData());
+    // this.authService.getUserFirestoreData().subscribe((data) => {
+    //   this.userFirestoreData = data;
+    // });
+    
+    // console.log(this.userFirestoreData);
 
     // const selectedDate = this.appointmentService.selectedDate;
     // const selectedTime = this.appointmentService.selectedTime;
@@ -101,6 +102,14 @@ export class BookappointmentPage implements OnInit {
     //     this.appointmentForm.setValue(appointmentData);
     //   }
     // });
+    this.getUserFirestoreData();
+  }
+
+  getUserFirestoreData() {
+    this.authService.getUserFirestoreData().subscribe((data: any) => {
+      this.userFirestoreData = data;
+      console.log(this.userFirestoreData);
+    });
   }
 
   onSubmit() {

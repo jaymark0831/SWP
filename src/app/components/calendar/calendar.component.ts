@@ -3,6 +3,10 @@ import { ModalController } from '@ionic/angular';
 import { IonDatetime } from '@ionic/angular';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { Params, Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { QuerySnapshot } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -11,11 +15,13 @@ import { Params, Router } from '@angular/router';
 })
 
 export class CalendarComponent  implements OnInit {
+  appointmentsCollection: any;
 
   constructor(
     private modalController: ModalController,
     private appointmentService: AppointmentService,
-    private router: Router
+    private router: Router,
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {}
@@ -48,11 +54,11 @@ export class CalendarComponent  implements OnInit {
     );
   };
 
-  onDateChange(event: any) {
+  async onDateChange(event: any) {
     const selectedDate: Date = new Date(event.detail.value);
 
     // Generate the available times based on the selected date
-    this.availableTimes = this.generateAvailableTimes(selectedDate);
+    this.availableTimes = await this.generateAvailableTimes(selectedDate);
 
     // Update the selected date and time
     this.selectedDate = selectedDate.toLocaleDateString();
@@ -68,10 +74,13 @@ export class CalendarComponent  implements OnInit {
     console.log('Selected Time:', this.selectedTime);
   }
 
-  generateAvailableTimes(selectedDate: Date): string[] {
+  //Selected TIME
+  async generateAvailableTimes(selectedDate: Date): Promise<string[]> {
     const availableTimes: string[] = [];
     const startHour = 8;
     const endHour = 14;
+  
+    const timePromises = [];
   
     for (let hour = startHour; hour <= endHour; hour++) {
       const formattedHour = hour % 12 || 12; // Convert to 12-hour format
@@ -79,12 +88,70 @@ export class CalendarComponent  implements OnInit {
       const nextFormattedHour = (formattedHour + 1) % 12 || 12;
       const nextTimeLabel = hour < 11 || (hour === 11 && formattedHour === 12) ? 'AM' : 'PM';
   
-      availableTimes.push(`${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`);
+      const timeSlot = `${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`;
+      const timePromise = this.isTimeReserved(selectedDate, timeSlot)
+        .then((isReserved) => {
+          if (!isReserved) {
+            availableTimes.push(timeSlot);
+          }
+        });
+      timePromises.push(timePromise);
     }
+  
+    await Promise.all(timePromises);
   
     return availableTimes;
   }
 
+  //testing disabling reserved data and time
+  checkReservation() {
+    const selectedDate = new Date(); // Replace with the selected date
+    const selectedTimeSlot = '9:00 AM - 10:00 AM'; // Replace with the selected time slot
+  
+    this.isTimeReserved(selectedDate, selectedTimeSlot);
+  }
+  
+  //Checking of reserved date and time in firestore
+  async isTimeReserved(selectedDate: Date, timeSlot: string): Promise<boolean> {
+    const appointmentRef = this.firestore.collection('appointments').ref;
+    const query = appointmentRef
+      .where('appointmentData.date', '==', selectedDate.toISOString())
+      .limit(1);
+  
+    const snapshot = await query.get();
+  
+    if (!snapshot.empty) {
+      const appointments = snapshot.docs.map((doc) => doc.data());
+      const isReserved = appointments.some((appointment: any) => {
+        const appointmentData = appointment.appointmentData;
+        const appointmentDate = appointmentData.date;
+        const appointmentTime = appointmentData.time;
+  
+        console.log(`Date: ${appointmentDate}, Time: ${appointmentTime}`);
+  
+        // Perform the comparison logic here
+        return this.compareTimeSlots(appointmentTime, timeSlot);
+      });
+  
+      if (!isReserved) {
+        console.log(`Reserved: ${timeSlot}`);
+      } else {
+        console.log(`Available: ${timeSlot}`);
+      }
+  
+      return isReserved;
+    }
+  
+    console.log(`Available: ${timeSlot}`);
+    return false;
+  }
+  
+  compareTimeSlots(timeSlot1: string, timeSlot2: string): boolean {
+    // Compare the time slots here based on your specific format and requirements
+    // Adjust the comparison logic as per your time slot format and matching criteria
+    return timeSlot1 === timeSlot2;
+  }
+  
   clearSelection() {
     this.selectedDate = "";
     this.selectedTime = "";

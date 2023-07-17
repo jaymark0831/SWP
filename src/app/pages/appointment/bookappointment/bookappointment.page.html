@@ -35,26 +35,26 @@
               <ion-col size="12" class="ion-margin-bottom">
                 <h5>Enter Your Details</h5>
               </ion-col>
-            <form [formGroup]="appointmentForm" *ngIf="userFirestoreData">
+            <form [formGroup]="appointmentForm">
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="First Name" labelPlacement="floating" type="text" formControlName="firstName" value="{{ userFirestoreData.firstName }}"></ion-input>
+                  <ion-input label="First Name" labelPlacement="floating" type="text" formControlName="firstName"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Last Name" labelPlacement="floating" type="text" formControlName="lastName" value="{{ userFirestoreData.lastName }}"></ion-input>
+                  <ion-input label="Last Name" labelPlacement="floating" type="text" formControlName="lastName"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email" value="{{ userFirestoreData.email }}"></ion-input>
+                  <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="6"></ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNumber" value="{{ userFirestoreData.phoneNumber }}"></ion-input>
+                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNumber"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="6"></ion-col>

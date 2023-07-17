@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -107,14 +108,41 @@ export class AuthService {
   }
 
   // Retrieve user data from Firestore
-  getUserFirestoreData() {
-    const uid = this.userData.uid;
-    return this.firestore.doc(`users/${uid}`).valueChanges();
-  }
+  // getUserFirestoreData() {
+  //   const uid = this.userData.uid;
+  //   return this.firestore.collection('users').doc(uid).valueChanges();
+  // }
     // return this.firestore.collection('users').doc(uid).valueChanges();
   //   return this.firestore.collection('users', (ref) =>
   //   ref.where('userId', '==', uid)
   // ).valueChanges({ idField: 'id' });
+
+
+
+  getUserFirestoreData(): Observable<any> {
+    return new Observable((observer) => {
+      this.afAuth.currentUser.then((user) => {
+        if (user) {
+          const uid = user.uid;
+          this.firestore.collection('users').doc(uid).valueChanges().subscribe(
+            (data) => {
+              observer.next(data);
+              observer.complete();
+            },
+            (error) => {
+              observer.error(error);
+            }
+          );
+        } else {
+          observer.next(null);
+          observer.complete();
+        }
+      });
+    });
+  }
+  
+  
+  
+  
   
 }
-
