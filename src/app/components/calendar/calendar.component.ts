@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { IonDatetime } from '@ionic/angular';
-import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Params, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { QuerySnapshot } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -15,16 +12,17 @@ import { map } from 'rxjs/operators';
 })
 
 export class CalendarComponent  implements OnInit {
-  appointmentsCollection: any;
 
   constructor(
     private modalController: ModalController,
-    private appointmentService: AppointmentService,
+    private authService: AuthService,
     private router: Router,
     private firestore: AngularFirestore
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAppointments();
+  }
 
   @ViewChild('datetime') datetime!: IonDatetime;
 
@@ -32,7 +30,51 @@ export class CalendarComponent  implements OnInit {
   selectedDate!: string;
   selectedTime!: string;
   activeTime!: string;
+  appointments: any[] = [];
 
+  getAppointments() {
+    this.firestore.collection('appointments').valueChanges().subscribe((appointments: any[]) => {
+      this.appointments = appointments;
+      this.processAppointmentData();
+    });
+  }
+
+  processAppointmentData() {
+    const bookedTimes: { date: string; time: string }[] = [];
+  
+    for (const appointment of this.appointments) {
+      if (appointment.appointmentData) {
+        const appointmentData = appointment.appointmentData;
+        const dateAndTimeEntries = Object.entries(appointmentData).filter(
+          ([key, value]) =>
+            typeof value === 'string' &&
+            (key.toLowerCase().includes('date') ||
+              key.toLowerCase().includes('time'))
+        );
+  
+        const entry: { date: string; time: string } = { date: '', time: '' };
+  
+        for (const [key, value] of dateAndTimeEntries) {
+          if (key.toLowerCase().includes('date')) {
+            entry.date = value as string;
+          } else if (key.toLowerCase().includes('time')) {
+            entry.time = value as string;
+          }
+        }
+  
+        if (entry.date && entry.time) {
+          bookedTimes.push(entry);
+        }
+      }
+    }
+
+    console.log('Appointments:', this.appointments);
+    console.log('Booked Times:', bookedTimes);
+  
+    this.availableTimes = this.generateAvailableTimes(bookedTimes);
+  }
+  
+  
   // enable current month only
 
   currentMonth = (dateString: string) => {
@@ -54,17 +96,95 @@ export class CalendarComponent  implements OnInit {
     );
   };
 
-  async onDateChange(event: any) {
+  generateAvailableTimes(bookedTimes: { date: string; time: string }[]): string[] {
+    if (!this.selectedDate) {
+      return []; // No selected date, return empty array
+    }
+
+    const selectedDateBookedTimes = bookedTimes
+      .filter((booking) => booking.date === this.selectedDate)
+      .map((booking) => booking.time);
+
+    const availableTimes: string[] = [];
+    const startHour = 8;
+    const endHour = 14;
+
+    for (let hour = startHour; hour <= endHour; hour++) {
+      const formattedHour = hour % 12 || 12; // Convert to 12-hour format
+      const timeLabel = hour < 12 ? 'AM' : 'PM';
+      const nextFormattedHour = (formattedHour + 1) % 12 || 12;
+      const nextTimeLabel =
+        hour < 11 || (hour === 11 && formattedHour === 12) ? 'AM' : 'PM';
+
+      const time = `${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`;
+
+      if (!selectedDateBookedTimes.includes(time)) {
+        availableTimes.push(time);
+      }
+    }
+
+    return availableTimes;
+  }
+
+  isTimeReservedOnSelectedDate(time: string): boolean {
+    if (!this.selectedDate) {
+      return false; // No selected date, no reservation to check
+    }
+
+    const selectedDateTime = new Date(this.selectedDate + ' ' + time);
+
+    for (const appointment of this.appointments) {
+      if (appointment.appointmentData) {
+        const appointmentData = appointment.appointmentData;
+
+        for (const key in appointmentData) {
+          if (
+            appointmentData.hasOwnProperty(key) &&
+            typeof appointmentData[key] === 'string' &&
+            key.toLowerCase().includes('date') &&
+            appointmentData[key] === selectedDateTime.toLocaleDateString() &&
+            appointmentData['time'] === time
+          ) {
+            return true; // Time is reserved on the selected date
+          }
+        }
+      }
+    }
+
+    return false; // Time is not reserved on the selected date
+  }
+
+  onDateChange(event: any) {
     const selectedDate: Date = new Date(event.detail.value);
-
-    // Generate the available times based on the selected date
-    this.availableTimes = await this.generateAvailableTimes(selectedDate);
-
-    // Update the selected date and time
+  
+    // Update the selected date
     this.selectedDate = selectedDate.toLocaleDateString();
-    this.selectedTime = ""; // Clear the previous selected time
-    this.activeTime = "";
     console.log('Selected Date:', this.selectedDate);
+  
+    // Filter the booked times to get only the ones for the selected date
+    const bookedTimesForSelectedDate = this.appointments
+      .filter((appointment) => {
+        const appointmentData = appointment.appointmentData;
+        return (
+          appointmentData &&
+          appointmentData.hasOwnProperty('date') &&
+          appointmentData.date === this.selectedDate
+        );
+      })
+      .map((appointment) => {
+        const appointmentData = appointment.appointmentData;
+        return {
+          date: appointmentData.date,
+          time: appointmentData.time,
+        };
+      });
+  
+    // Generate the available times based on the selected date
+    this.availableTimes = this.generateAvailableTimes(bookedTimesForSelectedDate);
+  
+    // Clear the previous selected time
+    this.selectedTime = '';
+    this.activeTime = '';
   }
 
   onTimeButtonClick(time: string) {
@@ -74,84 +194,32 @@ export class CalendarComponent  implements OnInit {
     console.log('Selected Time:', this.selectedTime);
   }
 
-  //Selected TIME
-  async generateAvailableTimes(selectedDate: Date): Promise<string[]> {
-    const availableTimes: string[] = [];
-    const startHour = 8;
-    const endHour = 14;
-  
-    const timePromises = [];
-  
-    for (let hour = startHour; hour <= endHour; hour++) {
-      const formattedHour = hour % 12 || 12; // Convert to 12-hour format
-      const timeLabel = hour < 12 ? 'AM' : 'PM';
-      const nextFormattedHour = (formattedHour + 1) % 12 || 12;
-      const nextTimeLabel = hour < 11 || (hour === 11 && formattedHour === 12) ? 'AM' : 'PM';
-  
-      const timeSlot = `${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`;
-      const timePromise = this.isTimeReserved(selectedDate, timeSlot)
-        .then((isReserved) => {
-          if (!isReserved) {
-            availableTimes.push(timeSlot);
-          }
-        });
-      timePromises.push(timePromise);
+  isTimeBookedOnSelectedDate(time: string): boolean {
+    if (!this.selectedDate) {
+      return false; // No selected date, no reservation to check
     }
   
-    await Promise.all(timePromises);
+    for (const appointment of this.appointments) {
+      if (appointment.appointmentData) {
+        const appointmentData = appointment.appointmentData;
   
-    return availableTimes;
+        for (const key in appointmentData) {
+          if (
+            appointmentData.hasOwnProperty(key) &&
+            typeof appointmentData[key] === 'string' &&
+            key.toLowerCase().includes('date') &&
+            appointmentData[key] === this.selectedDate &&
+            appointmentData['time'] === time
+          ) {
+            return true; // Time is booked on the selected date
+          }
+        }
+      }
+    }
+  
+    return false; // Time is not booked on the selected date
   }
 
-  //testing disabling reserved data and time
-  checkReservation() {
-    const selectedDate = new Date(); // Replace with the selected date
-    const selectedTimeSlot = '9:00 AM - 10:00 AM'; // Replace with the selected time slot
-  
-    this.isTimeReserved(selectedDate, selectedTimeSlot);
-  }
-  
-  //Checking of reserved date and time in firestore
-  async isTimeReserved(selectedDate: Date, timeSlot: string): Promise<boolean> {
-    const appointmentRef = this.firestore.collection('appointments').ref;
-    const query = appointmentRef
-      .where('appointmentData.date', '==', selectedDate.toISOString())
-      .limit(1);
-  
-    const snapshot = await query.get();
-  
-    if (!snapshot.empty) {
-      const appointments = snapshot.docs.map((doc) => doc.data());
-      const isReserved = appointments.some((appointment: any) => {
-        const appointmentData = appointment.appointmentData;
-        const appointmentDate = appointmentData.date;
-        const appointmentTime = appointmentData.time;
-  
-        console.log(`Date: ${appointmentDate}, Time: ${appointmentTime}`);
-  
-        // Perform the comparison logic here
-        return this.compareTimeSlots(appointmentTime, timeSlot);
-      });
-  
-      if (!isReserved) {
-        console.log(`Reserved: ${timeSlot}`);
-      } else {
-        console.log(`Available: ${timeSlot}`);
-      }
-  
-      return isReserved;
-    }
-  
-    console.log(`Available: ${timeSlot}`);
-    return false;
-  }
-  
-  compareTimeSlots(timeSlot1: string, timeSlot2: string): boolean {
-    // Compare the time slots here based on your specific format and requirements
-    // Adjust the comparison logic as per your time slot format and matching criteria
-    return timeSlot1 === timeSlot2;
-  }
-  
   clearSelection() {
     this.selectedDate = "";
     this.selectedTime = "";
