@@ -54,7 +54,7 @@
               <ion-col size="6"></ion-col>
               <ion-col size-md="5" size-xs="12">
                 <ion-item>
-                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNumber"></ion-input>
+                  <ion-input label="Mobile Number" labelPlacement="floating" type="tel" formControlName="mobileNumber" (ionInput)="onInput($event)" #ionInputEl></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="6"></ion-col>
@@ -96,44 +96,38 @@
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Time</ion-label>
                 <ion-icon size="small" name="time" slot="start"></ion-icon>
-                <ion-input value="{{timeSelected}}" readonly></ion-input>
+                <ion-input label="Time" labelPlacement="stacked" value="{{timeSelected}}" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Date</ion-label>
                 <ion-icon size="small" name="calendar" slot="start"></ion-icon>
-                <ion-input value="{{dateSelected}}" readonly></ion-input>
+                <ion-input label="Date" labelPlacement="stacked" value="{{dateSelected}}" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Name</ion-label>
                 <ion-icon size="small" name="person" slot="start"></ion-icon>
-                <ion-input value="--:--" readonly></ion-input>
+                <ion-input label="Name" labelPlacement="stacked" [value]="nameValue" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Email</ion-label>
                 <ion-icon size="small" name="mail" slot="start"></ion-icon>
-                <ion-input value="--:--" readonly></ion-input>
+                <ion-input label="Email" labelPlacement="stacked" [value]="emailValue" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Mobile Number</ion-label>
                 <ion-icon size="small" name="call" slot="start"></ion-icon>
-                <ion-input value="--:--" readonly></ion-input>
+                <ion-input label="Mobile Number" labelPlacement="stacked" [value]="mobileNumberValue" readonly></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="9" push="1">
               <ion-item class="ion-align-items-center">
-                <ion-label position="stacked">Event</ion-label>
                 <ion-icon size="small" name="restaurant" slot="start"></ion-icon>
-                <ion-input value="--:--" readonly></ion-input>
+                <ion-input label="Event" labelPlacement="stacked" [value]="myeventValue" readonly></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>

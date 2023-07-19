@@ -163,18 +163,31 @@ export class LoginComponent  implements OnInit {
   // Login with Email and Password
   login() {
     console.log(this.loginForm.value);
-    const userData = Object.assign(this.loginForm.value, {email: this.loginForm.value.email});
-    
-    this.authService.signInWithEmailAndPassword(userData).then((res: any) =>{
-      console.log(res.user);
-      this.modalCtrl.dismiss();
-      this.authService.setUserData(res.user); //Store user data in the authservice
-      this.router.navigateByUrl('/menulogin/home');
-    }).catch((error: any) =>{
-      console.error(error);
-    });
-
-
+    const userData = Object.assign(this.loginForm.value, { email: this.loginForm.value.email });
+  
+    // Check if the email is banned from login
+    if (!this.isBannedEmail(userData.email)) {
+      this.authService.signInWithEmailAndPassword(userData)
+        .then((res: any) => {
+          console.log(res.user);
+          this.modalCtrl.dismiss();
+          this.authService.setUserData(res.user); // Store user data in the authservice
+          this.router.navigateByUrl('/menulogin/home');
+        })
+        .catch((error: any) => {
+          console.error(error);
+        });
+    } else {
+      console.log('Account is banned from login');
+      // Display an error message
+    }
   }
+  
+  isBannedEmail(email: string): boolean {
+    // Check if the email is banned from login
+    const bannedEmail = 'admin@email.com';
+    return email === bannedEmail;
+  }
+  
 
 }

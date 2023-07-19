@@ -58,7 +58,7 @@
       <ion-item button (click)="dropdown=false; selectCatAcc('settings')" routerLink="/menulogin/account" routerDirection="root" [queryParams]="{category: 'settings'}" line="none" [class.active-item]="selectedCatAcc==='settings'">
         Settings
       </ion-item>
-      <ion-item button (click)="dropdown=false; selectCatAcc('logout')"  routerLink="/" routerDirection="root">
+      <ion-item button (click)="dropdown=false; selectCatAcc('logout'); signOut()">
         Logout
       </ion-item>
     </div>

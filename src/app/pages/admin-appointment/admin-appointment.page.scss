@@ -59,3 +59,8 @@ ion-card-header.appointment-header {
         padding: 10px;
     }
 }
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}

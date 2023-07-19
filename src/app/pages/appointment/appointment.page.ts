@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AppointmentPage implements OnInit {
   appointments!: any[];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private firestore: AngularFirestore) { }
 
   ngOnInit() {
 
@@ -20,6 +21,24 @@ export class AppointmentPage implements OnInit {
     this.authService.getAppointmentData().subscribe((appointments) => {
       this.appointments = appointments;
     });
+  }
+
+  cancelAppointment(appointment: any) {
+    if (appointment.appointmentData.status === 'cancelled') {
+      console.log('Appointment is already cancelled.');
+      return;
+    }
+
+    // Update the appointment status to 'cancelled'
+    const appointmentRef = this.firestore.collection('appointments').doc(appointment.id);
+    appointmentRef
+      .update({ 'appointmentData.status': 'cancelled' })
+      .then(() => {
+        console.log('Appointment cancelled successfully.');
+      })
+      .catch((error) => {
+        console.log('Error cancelling appointment:', error);
+      });
   }
 
 }

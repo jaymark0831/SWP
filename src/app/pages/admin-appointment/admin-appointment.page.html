@@ -5,54 +5,47 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-grid class="ion-margin-top" fixed>
     <ion-row>
-        <ion-col size="3" sizeMd="3" sizeXs="12" class="ion-no-margin ion-no-padding">
-          <!-- Appointment Card -->
-          <ion-card class="appointmentCard ion-no-padding">
-            <ion-card-header>
-              <ion-card-title color="light">Appointments</ion-card-title>
-              <ion-card-subtitle color="light">Total</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <h1> {{appointmentCount}} </h1>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-<!-- 
-        <ion-col size="3" sizeMd="3" sizeXs="12" class="ion-no-margin ion-no-padding">
-          <!-- Appointment Calendar 
-          <ion-card class="appointmentCard ion-no-padding">
-            <ion-card-header>
-              <ion-card-title color="light">Appointment Calendar</ion-card-title>
-              <ion-card-subtitle color="light">View</ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col> -->
+      <ion-col size="3" sizeMd="3" sizeXs="12" class="ion-no-margin ion-no-padding">
+        <!-- Appointment Card -->
+        <ion-card class="appointmentCard ion-no-padding">
+          <ion-card-header>
+            <ion-card-title color="light">Appointments</ion-card-title>
+            <ion-card-subtitle color="light">{{getSubtitleText()}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <h1>{{ totalAppointments }}</h1>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="12">
         <!-- Pending and cancelled -->
-        <ion-segment value="pending" mode="ios" class="ion-no-margin">
-          <ion-segment-button value="pending" >
+        <ion-segment mode="ios" class="ion-no-margin" [(ngModel)]="segmentValue" (ionChange)="filterAppointments()">
+          <ion-segment-button value="pending">
             <ion-label>Pending</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="done">
+          <ion-segment-button value="confirmed">
+            <ion-label>Confirmed</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="completed">
             <ion-label>Done</ion-label>
           </ion-segment-button>
-          <!-- <ion-segment-button value="cancelled">
+          <ion-segment-button value="cancelled">
             <ion-label>Cancelled</ion-label>
-          </ion-segment-button> -->
+          </ion-segment-button>
         </ion-segment>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
-        <ion-card *ngFor="let item of items"  class="list-appointment">
+        <ion-card class="list-appointment" *ngFor="let appointment of filteredItems">
           <ion-card-header class="appointment-header">
-            <ion-card-title>{{ item.appointmentData.firstName }} {{ item.appointmentData.lastName }}</ion-card-title>
+            <ion-card-title>{{appointment.appointmentData.firstName}} {{appointment.appointmentData.lastName}}</ion-card-title>
             <ion-card-subtitle>
               <div class="flex-container">
                 <div class="flex-column">
@@ -60,31 +53,76 @@
                     <ion-input label="Location" labelPlacement="stacked" value="Q38F+C5Q Don Florencio Village, Gov. Antonio Carpio Rd, Batangas, 4200 Batangas" readonly></ion-input>
                   </ion-item>
                   <ion-item>
-                    <ion-input label="Event" labelPlacement="stacked" value="{{ item.appointmentData.event }}" readonly></ion-input>
+                    <ion-input label="Event" labelPlacement="stacked" value={{appointment.appointmentData.event}} readonly></ion-input>
                   </ion-item>
                 </div>
                 <div class="flex-column">
                   <ion-item>
-                    <ion-input label="Date" labelPlacement="stacked" value="{{ item.appointmentData.date }}" readonly></ion-input>
+                    <ion-input label="Date" labelPlacement="stacked" value={{appointment.appointmentData.date}} readonly></ion-input>
                   </ion-item>
                   <ion-item>
-                    <ion-input label="Time" labelPlacement="stacked" value="{{ item.appointmentData.time }}" readonly></ion-input>
+                    <ion-input label="Time" labelPlacement="stacked" value={{appointment.appointmentData.time}} readonly></ion-input>
                   </ion-item>
                 </div>
                 <div class="flex-column">
                   <ion-item>
-                    <ion-input label="Email" labelPlacement="stacked" value="{{ item.appointmentData.email }}" readonly></ion-input>
+                    <ion-input label="Email" labelPlacement="stacked" value={{appointment.appointmentData.email}} readonly></ion-input>
                   </ion-item>
                   <ion-item>
-                    <ion-input label="Mobile Number" labelPlacement="stacked" value="{{ item.appointmentData.mobileNumber }}" readonly></ion-input>
+                    <ion-input label="Mobile Number" labelPlacement="stacked" value={{appointment.appointmentData.mobileNumber}} readonly></ion-input>
                   </ion-item>
                 </div>
               </div>
             </ion-card-subtitle>
           </ion-card-header>
-          <ion-button (click)="click()" size="small" fill="outline">
-            Confirm
-          </ion-button>
+          <div class="buttons">
+            <ion-button
+              *ngIf="segmentValue === 'pending'"
+              (click)="confirmAppointment(appointment, 'confirm')"
+              fill="outline"
+              size="small">
+                Confirm
+            </ion-button>
+            <ion-button
+              *ngIf="segmentValue === 'confirmed'"
+              (click)="confirmAppointment(appointment, 'completed')"
+              fill="outline"
+              size="small">
+                Done
+            </ion-button>
+            <ion-button
+              *ngIf="segmentValue === 'completed'"
+              color="success"
+              fill="solid"
+              size="small"
+              disabled>
+                Completed
+            </ion-button>
+            <ion-button
+              *ngIf="segmentValue === 'cancelled'"
+              color="danger"
+              fill="solid"
+              size="small"
+              disabled>
+                Cancelled
+            </ion-button>
+            <ion-button
+              *ngIf="segmentValue === 'cancelled' && appointment.appointmentData.status === 'cancelled'"
+              (click)="confirmAppointment(appointment, 'delete')"
+              color="danger"
+              fill="outline"
+              size="small">
+                Delete
+            </ion-button>
+            <ion-button
+              *ngIf="segmentValue === 'completed' && appointment.appointmentData.status === 'completed'"
+              (click)="confirmAppointment(appointment, 'delete')"
+              color="danger"
+              fill="outline"
+              size="small">
+                Delete
+            </ion-button>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>

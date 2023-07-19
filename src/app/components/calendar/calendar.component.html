@@ -21,6 +21,9 @@
           [isDateEnabled]="currentMonth"
           hourCycle="h12"
           (ionChange)="onDateChange($event)"
+          [(ngModel)]="selectedDate" 
+          [highlightedDates]="highlightedDates"
+            
         ></ion-datetime>
         <ion-row class="ion-justify-content-evenly ion-margin-bottom ion-padding-bottom">
           <ion-button color="danger" (click)="clearSelection()">Clear</ion-button>
@@ -28,24 +31,27 @@
         </ion-row>
       </ion-col>
 
-      <ion-col size="4" sizeMd="4" sizeXs="10" push="1" *ngIf="availableTimes.length > 0">
-        <ion-list *ngFor="let time of availableTimes">
+      <ion-col size="4" sizeMd="4" sizeXs="10" push="1" *ngIf="availableTimes.length > 0 && availableTimes[0].time.includes(':')">
+        <ion-list *ngFor="let availableTime of availableTimes" class="ion-justify-content-center">
           <ion-button
-            class="centered-button"
+            [disabled]="availableTime.disabled"
             fill="outline"
-            (click)="onTimeButtonClick(time)"
+            expand="block"
+            (click)="onTimeButtonClick(availableTime.time)"
+            [class.active-button]="availableTime.time === activeTime"
           >
-            {{ time }}
+            {{ availableTime.time }}
           </ion-button>
         </ion-list>
       </ion-col>
+      
 
-      <!-- <ion-button (click)="processAppointmentData()">click</ion-button> -->
+      <!-- <ion-button (click)="highlightDateWithAllDisabledTimes()">click</ion-button> -->
 
       <ion-col size="7">
         <ion-item>
-          <ion-icon name="ellipse" size="small" color="success"></ion-icon>
-          <ion-label>Available</ion-label>
+          <!-- <ion-icon name="ellipse" size="small" color="success"></ion-icon>
+          <ion-label>Available</ion-label> -->
           <ion-icon name="ellipse" size="small" color="danger"></ion-icon>
           <ion-label>Reserved</ion-label>
         </ion-item>

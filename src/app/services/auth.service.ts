@@ -6,6 +6,7 @@ import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,7 @@ export class AuthService {
   constructor( 
     private afs: AngularFireAuth, 
     private firestore: AngularFirestore,
-    private afAuth: AngularFireAuth,
+    
     private router: Router
   ) { }
 
@@ -82,7 +83,7 @@ export class AuthService {
   
   isAuthenticated(): boolean {
     // Check the authentication state
-    return !!this.afAuth.currentUser;
+    return !!this.afs.currentUser;
   }
   
   checkAuthentication(): void {
@@ -117,11 +118,9 @@ export class AuthService {
   //   ref.where('userId', '==', uid)
   // ).valueChanges({ idField: 'id' });
 
-
-
   getUserFirestoreData(): Observable<any> {
     return new Observable((observer) => {
-      this.afAuth.currentUser.then((user) => {
+      this.afs.currentUser.then((user) => {
         if (user) {
           const uid = user.uid;
           this.firestore.collection('users').doc(uid).valueChanges().subscribe(
@@ -140,8 +139,29 @@ export class AuthService {
       });
     });
   }
+
+  getAppointmentCollectionData() {
+    return this.firestore.collection('appointments').valueChanges({ idField: 'id' });
+  }
   
   
+  signOut() {
+    this.afs.signOut().then(() => {
+      // Successful sign-out
+      this.router.navigate(['/']); // Redirect to the login page or any desired page
+    }).catch((error: any) => {
+      console.error(error);
+    });
+  }
+
+  adminSignOut() {
+    this.afs.signOut().then(() => {
+      // Successful sign-out
+      this.router.navigate(['admin-login']); // Redirect to the login page or any desired page
+    }).catch((error: any) => {
+      console.error(error);
+    });
+  }
   
   
   

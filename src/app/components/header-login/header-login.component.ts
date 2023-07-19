@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header-login',
@@ -19,7 +20,7 @@ export class HeaderLoginComponent  implements OnInit {
   @ViewChild('bookingbtn', { read: ElementRef })
   bookingbtn!: ElementRef;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.selectedCategory='';
@@ -66,5 +67,9 @@ export class HeaderLoginComponent  implements OnInit {
   clearSelectedCategory(): void {
     this.selectedCategory = '';
     this.selectedCatAcc = ''; 
+  }
+
+  signOut() {
+    this.authService.signOut();
   }
 }

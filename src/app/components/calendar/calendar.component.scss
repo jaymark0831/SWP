@@ -14,10 +14,11 @@ ion-datetime {
     align-items: center;
 }
 
-.active {
-    --background: blue;
-    --color: white;
-}
+.active-button {
+    background: rgb(78, 116, 240);
+    color: white;
+  }
+  
 
 .centered-button {
     display: flex;
@@ -35,4 +36,12 @@ ion-datetime {
   }
   
   /* Adjust the styles according to your needs */
+  .disabled {
+    pointer-events: none; /* Disable click events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  }
+
+  .disabled-datetime .datetime-picker-calendar-month .selected-date {
+    background-color: red;
+  }
   

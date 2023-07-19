@@ -45,3 +45,27 @@ ion-item {
     --background: rgb(248, 89, 48, 0.8);
     --color: #fff;
 }
+
+.list-appointment {
+    display:flex;
+    align-items: center;
+}
+
+ion-card-header.appointment-header {
+    width: 90%;
+
+    ion-button {
+        padding: 10px;
+    }
+}
+
+.danger {
+    --background: var(--ion-color-danger);
+    --color: var(--ion-color-light);
+    --border-color: var(--ion-color-danger);
+}
+.success {
+    --background: var(--ion-color-success);
+    --color: var(--ion-color-light);
+    --border-color: var(--ion-color-success);
+}

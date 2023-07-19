@@ -22,15 +22,19 @@ export class CalendarComponent  implements OnInit {
 
   ngOnInit() {
     this.getAppointments();
+    this.processAppointmentData();
   }
 
   @ViewChild('datetime') datetime!: IonDatetime;
 
-  availableTimes: string[] = [];
+  // availableTimes: string[] = [];
   selectedDate!: string;
   selectedTime!: string;
   activeTime!: string;
   appointments: any[] = [];
+  availableTimes: { time: string; disabled: boolean }[] = [];
+  availableDates: string[] = []; // array of available dates
+  highlightedDates!: (isoString: string) => any; // Declare the highlightedDates function as a property
 
   getAppointments() {
     this.firestore.collection('appointments').valueChanges().subscribe((appointments: any[]) => {
@@ -41,6 +45,7 @@ export class CalendarComponent  implements OnInit {
 
   processAppointmentData() {
     const bookedTimes: { date: string; time: string }[] = [];
+    const allTimes: string[] = [];
   
     for (const appointment of this.appointments) {
       if (appointment.appointmentData) {
@@ -64,15 +69,76 @@ export class CalendarComponent  implements OnInit {
   
         if (entry.date && entry.time) {
           bookedTimes.push(entry);
+          allTimes.push(entry.time);
         }
       }
     }
-
+  
     console.log('Appointments:', this.appointments);
     console.log('Booked Times:', bookedTimes);
   
-    this.availableTimes = this.generateAvailableTimes(bookedTimes);
+    const disabledTimes: string[] = [];
+    const availableDates: string[] = [];
+  
+    for (const appointment of this.appointments) {
+      if (appointment.appointmentData) {
+        const appointmentData = appointment.appointmentData;
+        const date = appointmentData.date as string;
+        const times = allTimes.filter(time => {
+          return bookedTimes.some(booking => booking.date === date && booking.time === time);
+        });
+        if (times.length === allTimes.length) {
+          availableDates.push(date);
+        } else {
+          disabledTimes.push(...times);
+        }
+      }
+    }
+  
+    const uniqueDisabledTimes = [...new Set(disabledTimes)];
+
+    this.highlightedDates = (isoString: string) => {
+      const date = new Date(isoString);
+      const utcDateString = date.toISOString().split('T')[0];
+
+      if (this.availableDates.includes(utcDateString)) {
+        return {
+          textColor: 'white',
+          backgroundColor: 'red',
+        };
+      }
+
+      return undefined;
+    };
+  
+    console.log('Booked Dates:', availableDates);
+    console.log('Disabled Times:', uniqueDisabledTimes);
+
   }
+  
+
+  // highlightedDates = (isoString: string | number | Date) => {
+  //   const date = new Date(isoString);
+  //   const utcDateString = date.toISOString().split('T')[0];
+
+  //   if (this.availableDates.includes(utcDateString)) {
+  //     return {
+  //       textColor: 'white',
+  //       backgroundColor: 'red',
+  //     };
+  // }
+
+  //   return undefined;
+  // };
+
+  highlight = [
+    {
+      date: '2023-07-05',
+      textColor: '#800080',
+      backgroundColor: '#ffc0cb',
+    }
+  ];
+  
   
   
   // enable current month only
@@ -96,35 +162,100 @@ export class CalendarComponent  implements OnInit {
     );
   };
 
-  generateAvailableTimes(bookedTimes: { date: string; time: string }[]): string[] {
+  // generateAvailableTimes(bookedTimes: { date: string; time: string }[]): any[] {
+  //   if (!this.selectedDate) {
+  //     return []; // No selected date, return empty array
+  //   }
+  
+  //   const selectedDateBookedTimes = bookedTimes
+  //     .filter((booking) => booking.date === this.selectedDate)
+  //     .map((booking) => booking.time);
+  
+  //   const availableTimes: any[] = [];
+  //   const startHour = 8;
+  //   const endHour = 14;
+  
+  //   for (let hour = startHour; hour <= endHour; hour++) {
+  //     const formattedHour = hour % 12 || 12; // Convert to 12-hour format
+  //     const timeLabel = hour < 12 ? 'AM' : 'PM';
+  //     const nextFormattedHour = (formattedHour + 1) % 12 || 12;
+  //     const nextTimeLabel =
+  //       hour < 11 || (hour === 11 && formattedHour === 12) ? 'AM' : 'PM';
+  
+  //     const time = `${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`;
+  //     const disabled = selectedDateBookedTimes.includes(time); // Check if time is already booked
+
+  
+  //     availableTimes.push({ time, disabled });
+  //   }
+  
+  //   return availableTimes;
+  // }
+
+
+  generateAvailableTimes(bookedTimes: { date: string; time: string }[]): any[] {
     if (!this.selectedDate) {
       return []; // No selected date, return empty array
     }
-
+  
     const selectedDateBookedTimes = bookedTimes
       .filter((booking) => booking.date === this.selectedDate)
       .map((booking) => booking.time);
-
-    const availableTimes: string[] = [];
+  
+    const availableTimes: any[] = [];
     const startHour = 8;
     const endHour = 14;
-
+  
     for (let hour = startHour; hour <= endHour; hour++) {
       const formattedHour = hour % 12 || 12; // Convert to 12-hour format
       const timeLabel = hour < 12 ? 'AM' : 'PM';
       const nextFormattedHour = (formattedHour + 1) % 12 || 12;
       const nextTimeLabel =
         hour < 11 || (hour === 11 && formattedHour === 12) ? 'AM' : 'PM';
-
+  
       const time = `${formattedHour}:00 ${timeLabel} - ${nextFormattedHour}:00 ${nextTimeLabel}`;
-
-      if (!selectedDateBookedTimes.includes(time)) {
-        availableTimes.push(time);
-      }
+      const isTimeBooked = selectedDateBookedTimes.includes(time); // Check if time is already booked
+  
+      // Check if the time is not canceled
+      const isTimeNotCanceled = !this.isTimeCanceledOnSelectedDate(time);
+  
+      const disabled = isTimeBooked && isTimeNotCanceled; // Disable if time is booked and not canceled
+  
+      availableTimes.push({ time, disabled });
     }
-
+  
     return availableTimes;
   }
+  
+  isTimeCanceledOnSelectedDate(time: string): boolean {
+    if (!this.selectedDate) {
+      return false; // No selected date, no reservation to check
+    }
+  
+    for (const appointment of this.appointments) {
+      if (appointment.appointmentData) {
+        const appointmentData = appointment.appointmentData;
+  
+        for (const key in appointmentData) {
+          if (
+            appointmentData.hasOwnProperty(key) &&
+            key.toLowerCase().includes('date') &&
+            appointmentData[key] === this.selectedDate &&
+            appointmentData['time'] === time &&
+            appointmentData.hasOwnProperty('status') &&
+            appointmentData['status'] === 'cancelled'
+          ) {
+            return true; // Time is canceled on the selected date
+          }
+        }
+      }
+    }
+  
+    return false; // Time is not canceled on the selected date
+  }
+  
+
+
 
   isTimeReservedOnSelectedDate(time: string): boolean {
     if (!this.selectedDate) {
@@ -186,13 +317,21 @@ export class CalendarComponent  implements OnInit {
     this.selectedTime = '';
     this.activeTime = '';
   }
+  
 
   onTimeButtonClick(time: string) {
-    // Update the selected time
-    this.selectedTime = time;
-    this.activeTime = time; // Set the active time
-    console.log('Selected Time:', this.selectedTime);
+  const selectedTime = this.availableTimes.find((t) => t.time === time) as { time: string; disabled: boolean };
+
+  if (!selectedTime || selectedTime.disabled) {
+    return; // If time is disabled, do nothing
   }
+
+  // Update the selected time
+  this.selectedTime = selectedTime.time;
+  this.activeTime = selectedTime.time; // Set the active time
+  console.log('Selected Time:', this.selectedTime);
+}
+  
 
   isTimeBookedOnSelectedDate(time: string): boolean {
     if (!this.selectedDate) {

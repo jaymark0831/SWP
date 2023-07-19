@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { IonInput, ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { AppointmentService } from 'src/app/services/appointment.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
@@ -15,6 +14,80 @@ import 'firebase/compat/firestore';
 })
 export class BookappointmentPage implements OnInit {
 
+  dateSelected!: string;
+  timeSelected!: string;
+  // eventSelected!: string;
+  userFirestoreData!: any;
+  inputModel: any;
+  filteredSuggestions: string[] = []; // Holds the filtered suggestions
+  firstNameValue: any;
+  lastNameValue: any;
+  emailValue: any;
+  mobileNumberValue: any;
+  nameValue!: string;
+  myeventValue: any;
+
+  constructor(
+    private modalController: ModalController, 
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private formBuilder: FormBuilder
+    ) { }
+
+    ngOnInit() {
+      this.authService.getUserFirestoreData().subscribe((data: any) => {
+        this.userFirestoreData = data;
+        console.log('Firestore: ', this.userFirestoreData);
+    
+        if (this.userFirestoreData) {
+          this.appointmentForm.patchValue({
+            firstName: this.userFirestoreData.firstName,
+            lastName: this.userFirestoreData.lastName,
+            email: this.userFirestoreData.email,
+            mobileNumber: this.userFirestoreData.phoneNumber,
+          });
+          
+          // Get the default values from the form controls
+          this.nameValue = this.appointmentForm.value.firstName + " " + this.appointmentForm.value.lastName;
+          this.emailValue = this.appointmentForm.value.email;
+          this.mobileNumberValue = this.appointmentForm.value.mobileNumber;
+
+          // Subscribe to value changes of form controls
+          this.appointmentForm.get('firstName')?.valueChanges.subscribe((firstName: string) => {
+            this.nameValue = firstName + ' ' + this.appointmentForm.value.lastName;
+          });
+        
+          this.appointmentForm.get('lastName')?.valueChanges.subscribe((lastName: string) => {
+            this.nameValue = this.appointmentForm.value.firstName + ' ' + lastName;
+          });
+
+          this.appointmentForm.get('email')?.valueChanges.subscribe((value: string) => {
+            this.emailValue = value;
+          });
+
+          this.appointmentForm.get('mobileNumber')?.valueChanges.subscribe((value: string) => {
+            this.mobileNumberValue = value;
+          });
+
+          this.appointmentForm.get('event')?.valueChanges.subscribe((value: string) => {
+            this.myeventValue = value;
+          });
+        }
+      });
+    
+      // Check authentication and redirect if not authenticated
+      this.authService.checkAuthentication();
+    
+      this.route.queryParams.subscribe(params => {
+        this.dateSelected = params['date'];
+        this.timeSelected = params['time'];
+    
+        console.log('Selected Date: ', this.dateSelected);
+        console.log('Selected Time: ', this.timeSelected);
+      });
+    }
+    
+
   appointmentForm: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -22,18 +95,6 @@ export class BookappointmentPage implements OnInit {
     mobileNumber: new FormControl('', [Validators.required]),
     event: new FormControl('', [Validators.required])
   })
-
-  dateSelected!: string;
-  timeSelected!: string;
-  // eventSelected!: string;
-  userFirestoreData!: any;
-
-  constructor(
-    private modalController: ModalController, 
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private appointmentService: AppointmentService
-    ) { }
 
   async openCalendar() {
     const modal = await this.modalController.create({
@@ -50,83 +111,19 @@ export class BookappointmentPage implements OnInit {
 
   event = this.eventValue();
 
-  ngOnInit() {
-    // Retrieve the query parameters from the route
-    // this.route.queryParams.subscribe(params => {
-    //   this.dateSelected = params['date'];
-    //   this.timeSelected = params['time'];
-    // });
-
-    // Get the user data passed from the login component
-    // const userData = this.authService.getUserData();
-    // if(userData) {
-    //   this.appointmentForm.patchValue({
-    //     firstName: userData.displayName,
-    //     email: userData.email,
-    //     mobileNum: userData.phoneNumber
-    //   });
-    //   console.log(userData.phoneNumber);
-    //   console.log(userData.displayName);
-    // }
-
-    // Check authentication and redirect if not authenticated
-    this.authService.checkAuthentication();
-
-    // Retrieve user data from Firestore
-    // this.authService.setUserData(this.authService.getUserData());
-    // this.authService.getUserFirestoreData().subscribe((data) => {
-    //   this.userFirestoreData = data;
-    // });
-    
-    // console.log(this.userFirestoreData);
-
-    // const selectedDate = this.appointmentService.selectedDate;
-    // const selectedTime = this.appointmentService.selectedTime;
-
-    // this.dateSelected = selectedDate;
-    // this.timeSelected = selectedTime;
-
-    this.route.queryParams.subscribe(params => {
-      this.dateSelected = params['date'];
-      this.timeSelected = params['time'];
-
-    console.log('Selected Date: ', this.dateSelected);
-    console.log('Selected Time: ', this.timeSelected);
-    });
-
-
-    /// Retrieve and populate form data from Firestore
-    // this.authService.getAppointmentData().subscribe((docSnapshot: firebase.firestore.DocumentSnapshot<any>) => {
-    //   if (docSnapshot.exists) {
-    //     const appointmentData = docSnapshot.data();
-    //     this.appointmentForm.setValue(appointmentData);
-    //   }
-    // });
-    this.getUserFirestoreData();
-  }
-
-  getUserFirestoreData() {
-    this.authService.getUserFirestoreData().subscribe((data: any) => {
-      this.userFirestoreData = data;
-      console.log(this.userFirestoreData);
-    });
-  }
-
   onSubmit() {
     if (this.appointmentForm.valid) {
+      console.log('Form is valid');
+      console.log('Form value:', this.appointmentForm.value);
+  
+      // Add the date and time values to the form value
       const appointmentData = {
         ...this.appointmentForm.value,
         date: this.dateSelected,
-        time: this.timeSelected
-        // event: this.eventSelected // Access the value of 'myEvent'
+        time: this.timeSelected,
+        status: 'pending'
       };
-
-      console.log('appointmentData:', appointmentData);
-    // console.log('dateSelected:', this.dateSelected);
-    // console.log('timeSelected:', this.timeSelected);
-    // console.log('eventSelected:', this.eventSelected);
-
-      // Store the form data in Firestore
+  
       this.authService.storeAppointmentData(appointmentData)
         .then(() => {
           console.log('Appointment data stored successfully');
@@ -134,12 +131,36 @@ export class BookappointmentPage implements OnInit {
         .catch((error: any) => {
           console.error('Error storing appointment data:', error);
         });
-
+  
       // Perform further actions (e.g., submit form data to backend)
       // ...
     } else {
-      console.log('Invalid form');
+      console.log('Form is invalid');
+  
+      Object.keys(this.appointmentForm.controls).forEach((controlName) => {
+        const control = this.appointmentForm.get(controlName);
+        console.log(`Validation errors for ${controlName}:`, control?.errors);
+      });
     }
+  }
+  
+  
+  
+
+  // only numbers for mobilenumber
+  @ViewChild('ionInputEl', { static: true }) ionInputEl!: IonInput;
+
+  onInput(ev: any) {
+    const value = ev.target!.value;
+
+    // Removes non numeric characters
+    const filteredValue = value.replace(/[^0-9]/g, '');
+
+    /**
+     * Update both the state variable and
+     * the component to keep them in sync.
+     */
+    this.ionInputEl.value = this.inputModel = filteredValue;
   }
 
   

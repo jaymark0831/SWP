@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,9 +52,13 @@ export class DashboardPage implements OnInit {
     this.title = title;
   }
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  signOut() {
+    this.authService.adminSignOut();
   }
 
 }

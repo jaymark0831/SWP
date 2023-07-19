@@ -2,7 +2,7 @@ ion-content {
     place-content: center;
   }
   .bgimage {
-    background: url("/assets/images/bgimage.jpg");
+    background: url("../../../assets/login-cover.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -25,17 +25,7 @@ ion-content {
       text-align: center;
     }
   
-    .or-container {
-      display: flex;
-      align-items: center;
-      // margin: 20px 0;
-    }
-    
-    .or-line {
-      flex-grow: 1;
-      background-color: #ccc;
-      height: 1px;
-    }
+
   
   
   }
