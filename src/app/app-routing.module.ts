@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MenuPage } from './pages/menu/menu.page';
 import { MenuloginPage } from './pages/menulogin/menulogin.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'menulogin',
-    component: MenuloginPage
+    component: MenuloginPage,
+    canActivate: [AuthGuard]
   },
   {
     path: 'dashboard',
@@ -28,7 +30,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },  {
+  },
+  {
     path: 'admin-login',
     loadChildren: () => import('./components/admin-login/admin-login.module').then( m => m.AdminLoginPageModule)
   },

@@ -14,7 +14,7 @@ ion-content {
   .form {
     max-width: 500px;
     background-color: #fff;
-    margin: auto;
+    // margin: auto;
     text-align: center;
     padding: 15px;
     box-shadow: 15px 15px 20px #5557;
@@ -24,10 +24,6 @@ ion-content {
       font-size: 24px;
       text-align: center;
     }
-  
-
-  
-  
   }
   
   .logoo {
@@ -37,4 +33,8 @@ ion-content {
       width: 150px;
       height: 100px;
     }
+  }
+
+  ion-input {
+    width: 100%;
   }

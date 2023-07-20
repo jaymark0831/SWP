@@ -20,6 +20,8 @@ export class AdminAppointmentPage implements OnInit {
       (data) => {
         this.appointments = data;
         this.totalAppointments = this.appointments.length;
+        // this.sortAppointments();
+        this.sortAppointments();
         this.filterAppointments();
         console.log('Appointments: ', this.appointments);
       },
@@ -28,6 +30,24 @@ export class AdminAppointmentPage implements OnInit {
       }
     );
   }
+
+  sortAppointments() {
+    this.appointments.sort((a, b) => {
+      const dateA = new Date(a.appointmentData.date);
+      const dateB = new Date(b.appointmentData.date);
+      return dateA.getTime() - dateB.getTime(); // Sorts in descending order (latest date on top)
+    });
+
+    console.log('Sorted Appointments: ', this.appointments); // Display sorted appointments in the console
+  }
+
+  // sortAppointments() {
+  //   this.appointments.sort((a, b) => {
+  //     const dateA = new Date(a.appointmentData.date + ' ' + a.appointmentData.time);
+  //     const dateB = new Date(b.appointmentData.date + ' ' + b.appointmentData.time);
+  //     return dateB.getTime() - dateA.getTime(); // Sorts in descending order (latest date on top)
+  //   });
+  // }
 
   getSubtitleText(): string {
     if (this.segmentValue === 'completed') {
@@ -58,52 +78,36 @@ export class AdminAppointmentPage implements OnInit {
   }
 
   confirmAppointment(appointment: any, button: string) {
-    if (button === 'confirm' && appointment.appointmentData.status !== 'completed' && appointment.appointmentData.status !== 'cancelled') {
+    if (!appointment || !appointment.appointmentData) {
+      // Handle the case where the appointment object or appointmentData is undefined
+      console.error('Invalid appointment object');
+      return;
+    }
+  
+    const appointmentStatus = appointment.appointmentData.status;
+  
+    if (button === 'confirm' && appointmentStatus !== 'completed' && appointmentStatus !== 'cancelled') {
       appointment.appointmentData.status = 'confirmed';
       
       // Save the updated appointment in the database
-      this.afs
-        .collection('appointments')
-        .doc(appointment.id) // Assuming 'id' is the unique identifier of the appointment
-        .update({ 'appointmentData.status': 'confirmed' })
-        .then(() => {
-          console.log('Appointment confirmed and saved successfully');
-        })
-        .catch((error) => {
-          console.error('Error updating appointment:', error);
-        });
-
+      this.updateAppointmentStatus(appointment.id, 'confirmed', 'Appointment confirmed and saved successfully');
+  
       // Perform any additional actions or logic related to confirming the appointment
-    }
-    else if (button === 'completed' && appointment.appointmentData.status !== 'cancelled') {
+    } else if (button === 'completed' && appointmentStatus !== 'cancelled') {
       appointment.appointmentData.status = 'completed';
       
       // Save the updated appointment in the database
-      this.afs
-        .collection('appointments')
-        .doc(appointment.id) // Assuming 'id' is the unique identifier of the appointment
-        .update({ 'appointmentData.status': 'completed' })
-        .then(() => {
-          console.log('Appointment marked as completed and saved successfully');
-        })
-        .catch((error) => {
-          console.error('Error updating appointment:', error);
-        });
-
+      this.updateAppointmentStatus(appointment.id, 'completed', 'Appointment marked as completed and saved successfully');
+  
       // Perform any additional actions or logic related to marking the appointment as done
-    } else if (button === 'delete' && (appointment.appointmentData.status === 'completed' || appointment.appointmentData.status === 'cancelled')) {
-        // Delete the appointment from the database
-        this.deleteAppointment(appointment.id)
-          .then(() => {
-            console.log('Appointment deleted successfully');
-          })
-          .catch((error) => {
-            console.error('Error deleting appointment:', error);
-          });
-
-        // Perform any additional actions or logic related to deleting the appointment
-      }
+    } else if (button === 'delete' && (appointmentStatus === 'completed' || appointmentStatus === 'cancelled')) {
+      // Delete the appointment from the display (not Firestore)
+      this.deleteAppointment(appointment);
+  
+      // Perform any additional actions or logic related to deleting the appointment from the display
     }
+  }
+  
 
     updateAppointmentStatus(appointmentId: string, status: string, successMessage: string) {
       // Save the updated appointment status in the database
@@ -119,12 +123,38 @@ export class AdminAppointmentPage implements OnInit {
         });
     }
 
-    deleteAppointment(appointmentId: string) {
-      // Delete the appointment from the database
-      return this.afs
-        .collection('appointments')
-        .doc(appointmentId)
-        .delete();
+    deleteAppointment(appointment: any) {
+      if (appointment.appointmentData.status === 'completed') {
+        // Remove the appointment from the appointments array
+        const index = this.appointments.indexOf(appointment);
+        if (index !== -1) {
+          this.appointments.splice(index, 1);
+        }
+    
+        // Update the filteredItems and totalAppointments variables based on the segment value
+        this.filterAppointments();
+    
+        // Perform any additional actions or logic related to deleting the appointment from the display
+    
+        console.log('Appointment deleted from display');
+        return Promise.resolve(); // Return a resolved promise since no Firestore deletion is required
+      } else if (appointment.id) {
+        // Delete the appointment from the database
+        return this.afs
+          .collection('appointments')
+          .doc(appointment.id)
+          .delete()
+          .then(() => {
+            console.log('Appointment deleted successfully from Firestore');
+          })
+          .catch((error) => {
+            console.error('Error deleting appointment:', error);
+          });
+      } else {
+        return Promise.reject('Invalid appointment');
+      }
     }
+    
+    
   
 }

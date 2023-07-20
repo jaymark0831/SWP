@@ -18,11 +18,6 @@ export class LoginComponent  implements OnInit {
   passwordForm!: FormGroup;
   showPassword = false;
 
-  // loginForm = this.formBuilder.group({
-  //   email: [''],
-  //   password: ['']
-  // });
-
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
@@ -44,73 +39,6 @@ export class LoginComponent  implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
-  //collect email and password using get method
-  // get email() {
-  //   return this.loginForm.get('email');
-  // }
-  // get password() {
-  //   return this.loginForm.get('password');
-  // }
-
-  // async login() {
-  //   try {
-  //     const email = this.email?.value;
-  //     const password = this.password?.value;
-  //     if (email && password) {
-  //       const login = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-  //       console.log(login);
-  //       this.router.navigateByUrl('/menulogin/home');
-
-  //       this.modalCtrl.dismiss();
-
-  //       this.alertController.create({
-  //         header: 'Success',
-  //         message: 'Welcome!',
-  //         cssClass: 'alertError',
-  //         buttons: [
-  //           {
-  //             text: 'OK', 
-  //             handler: () => {
-  //               console.log('OK');
-  //             }
-  //           }
-  //         ]
-  //       }).then(response => response.present());
-  //     } else {
-  //       this.alertController.create ({
-  //         header: 'Failed',
-  //         message: 'Login failed!',
-  //         cssClass: 'alertError',
-  //         buttons: [
-  //           {
-  //             text: 'OK', 
-  //             handler: () => {
-  //               console.log('Login Failed');
-  //             }
-  //           }
-  //         ]
-  //       }).then(response => response.present());
-  //     }
-  //   } catch (error) {
-  //     console.dir(error);
-
-  //     this.alertController.create ({
-  //       header: 'Failed',
-  //       message: 'Login failed!',
-  //       cssClass: 'alertError',
-  //       buttons: [
-  //         {
-  //           text: 'OK', 
-  //           handler: () => {
-  //             console.log('Login Failed');
-  //           }
-  //         }
-  //       ]
-  //     }).then(response => response.present());
-  //   }
-  //   this.loginForm.reset();
-  // }
 
   async presentModal() {
     const modal = await this.modalCtrl.create({
@@ -143,12 +71,6 @@ export class LoginComponent  implements OnInit {
     return await modal.present();
   }
 
-
-
-  // dismissModal() {
-  //   this.modalCtrl.dismiss();
-  // }
-
   //Login with Google Button
   logInWithGoogle() {
     this.authService.signInWithGoogle().then((res: any) => {
@@ -173,13 +95,53 @@ export class LoginComponent  implements OnInit {
           this.modalCtrl.dismiss();
           this.authService.setUserData(res.user); // Store user data in the authservice
           this.router.navigateByUrl('/menulogin/home');
+          this.alertController.create({
+            header: 'Success',
+            message: 'Welcome!',
+            cssClass: 'alertSuccess',
+            buttons: [
+              {
+                text: 'OK', 
+                handler: () => {
+                  console.log('OK');
+                }
+              }
+            ]
+          }).then(response => response.present());
         })
         .catch((error: any) => {
           console.error(error);
+          this.alertController.create({
+            header: 'Login Failed',
+            message: error.message,
+            cssClass: 'alertError',
+            buttons: [
+              {
+                text: 'OK', 
+                handler: () => {
+                  console.log('OK');
+                }
+              }
+            ]
+          }).then(response => response.present());
         });
     } else {
       console.log('Account is banned from login');
       // Display an error message
+      this.alertController.create({
+        header: 'Login Failed',
+        message: 'Account is banned from login!',
+        cssClass: 'alertError',
+        buttons: [
+          {
+            text: 'OK', 
+            handler: () => {
+              console.log('OK');
+            }
+          }
+        ]
+      }).then(response => response.present());
+
     }
   }
   

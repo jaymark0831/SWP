@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menulogin',
@@ -49,13 +50,11 @@ export class MenuloginPage implements OnInit {
 
   title = 'Home';
 
-  constructor(private menuCtrl: MenuController, private plt: Platform, private authservice: AuthService) { }
+  constructor(private menuCtrl: MenuController, private plt: Platform, private authservice: AuthService, private router: Router) { }
 
   ngOnInit() {
     const width = this.plt.width();
     this.toggleMenu(width);
-
-    this.authservice.checkAuthentication();
   }
 
   setTitle(title: any){

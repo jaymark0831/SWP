@@ -14,13 +14,12 @@ export class AppointmentPage implements OnInit {
 
   ngOnInit() {
 
-    // Check authentication and redirect if not authenticated
-    this.authService.checkAuthentication();
-
     // Retrieve appointment data from Firestore
     this.authService.getAppointmentData().subscribe((appointments) => {
       this.appointments = appointments;
+      this.sortAppointments();
     });
+    
   }
 
   cancelAppointment(appointment: any) {
@@ -32,13 +31,23 @@ export class AppointmentPage implements OnInit {
     // Update the appointment status to 'cancelled'
     const appointmentRef = this.firestore.collection('appointments').doc(appointment.id);
     appointmentRef
-      .update({ 'appointmentData.status': 'cancelled' })
+      .update({ 'appointmentData.status': 'cancelled','appointmentData.time':'cancelled'})
       .then(() => {
         console.log('Appointment cancelled successfully.');
       })
       .catch((error) => {
         console.log('Error cancelling appointment:', error);
       });
+  }
+
+  sortAppointments() {
+    this.appointments.sort((a, b) => {
+      const dateA = new Date(a.appointmentData.date);
+      const dateB = new Date(b.appointmentData.date);
+      return dateA.getTime() - dateB.getTime(); // Sorts in descending order (latest date on top)
+    });
+
+    console.log('Sorted Appointments: ', this.appointments); // Display sorted appointments in the console
   }
 
 }

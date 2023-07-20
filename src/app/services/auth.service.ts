@@ -4,14 +4,17 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-
+import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { getAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private userData: any;
+  static isAuthenticated() {
+    throw new Error('Method not implemented.');
+  }
+  userData: any;
   eventSelected: any;
   timeSelected: any;
   dateSelected: any;
@@ -20,9 +23,9 @@ export class AuthService {
   constructor( 
     private afs: AngularFireAuth, 
     private firestore: AngularFirestore,
-    
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {
+   }
 
   setUserData(data: any) {
     this.userData = data;
@@ -61,36 +64,26 @@ export class AuthService {
     });
   }
 
-  // deleteAccount() {
-  //   return this.afs.currentUser
-  //     .then((user) => {
-  //       if (user) {
-  //         // Delete user in Firebase Authentication
-  //         return user.delete()
-  //           .then(() => {
-  //             // Delete user document in Firestore
-  //             return this.firestore.collection('users').doc(user.uid).delete();
-  //           }); 
-  //       } else {
-  //         return Promise.reject("User not found");
-  //       }
-  //     });
-  // }
-
   signInWithEmailAndPassword(user: { email: string, password: string }) {
     return this.afs.signInWithEmailAndPassword(user.email, user.password)
   }
+
   
-  isAuthenticated(): boolean {
-    // Check the authentication state
-    return !!this.afs.currentUser;
-  }
-  
-  checkAuthentication(): void {
-    if (!this.isAuthenticated()) {
-      // User is not authenticated, redirect to login page
-      this.router.navigate(['/']);
-    }
+  //authentication
+  isAuthenticated() {
+    return this.afs.authState.pipe(
+      tap(user => console.log('Current user:', user)),
+      switchMap(user => {
+        if (user) {
+          this.userData = user;
+          return of(true);
+        } else {
+          this.userData = null;
+          return of(false);
+        }
+      }),
+      tap(isAuthenticated => console.log('Is user authenticated:', isAuthenticated))
+    );
   }
 
   storeAppointmentData(appointmentData: any) {
@@ -107,16 +100,6 @@ export class AuthService {
       ref.where('userId', '==', uid)
     ).valueChanges({ idField: 'id' });
   }
-
-  // Retrieve user data from Firestore
-  // getUserFirestoreData() {
-  //   const uid = this.userData.uid;
-  //   return this.firestore.collection('users').doc(uid).valueChanges();
-  // }
-    // return this.firestore.collection('users').doc(uid).valueChanges();
-  //   return this.firestore.collection('users', (ref) =>
-  //   ref.where('userId', '==', uid)
-  // ).valueChanges({ idField: 'id' });
 
   getUserFirestoreData(): Observable<any> {
     return new Observable((observer) => {

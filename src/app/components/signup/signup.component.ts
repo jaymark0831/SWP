@@ -153,10 +153,51 @@ export class SignupComponent  implements OnInit {
       console.log(res);
       this.modalCtrl.dismiss().then(() => {
         this.openLoginModal();
+      
+        let alertButtonClicked = false; // Flag to check if the alert button is clicked
+      
+        this.alertController.create({
+          header: 'SignUp Successful',
+          message: 'Login Now',
+          cssClass: 'alertSuccess',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                console.log('OK');
+                alertButtonClicked = true; // Set the flag to true when the button is clicked
+              },
+            },
+          ],
+        }).then((alert) => {
+          alert.present().then(() => {
+            // Do nothing when the alert is presented
+          });
+          alert.onDidDismiss().then(() => {
+            // Check the flag after the alert is dismissed
+            if (alertButtonClicked) {
+              this.router.navigateByUrl('/menulogin/home');
+            }
+          });
+        });
       });
+      
       
     }).catch((error: any) => {
       console.log(error);
+      this.alertController.create({
+        header: 'Signup Failed',
+        message: error.message,
+        cssClass: 'alertError',
+        buttons: [
+          {
+            text: 'OK', 
+            handler: () => {
+              console.log('OK');
+            }
+          }
+        ]
+      }).then(response => response.present());
     })
   }
 

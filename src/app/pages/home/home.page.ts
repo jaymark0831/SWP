@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { IonicSlides } from '@ionic/angular';
-
+import { Router } from '@angular/router';
+import { IonicSlides, ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -18,30 +20,48 @@ export class HomePage implements OnInit {
     '../../../assets/3.jpg'
   ];
 
-  constructor() { }
+  constructor(private authService: AuthService, 
+    private router: Router,
+    private modalController: ModalController
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 
   swiperModules = [IonicSlides];
-
-  // getLoopImages(): string[] {
-  //   let currentIndex = 0;
-  //   const loopImages = [];
-  //   const loopLimit = 10;
-  
-  //   for (let i = 0; i < loopLimit; i++) {
-  //     loopImages.push(this.slideImages[currentIndex]);
-  //     currentIndex = (currentIndex + 1) % this.slideImages.length;
-  //   }
-    
-  //   return loopImages;
-  // }
 
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
 
   logActiveIndex() {
     console.log(this.swiperRef?.nativeElement.swiper.activeIndex(2));
+  }
+
+
+  onBookAppointmentClick() {
+    // Check if the user is logged in
+    this.authService.isAuthenticated().subscribe(isLoggedIn => {
+      console.log('Login:', isLoggedIn);
+  
+      if (isLoggedIn) {
+        // User is logged in, redirect to "bookappointment" page
+        this.router.navigate(['/menulogin/bookappointment']);
+      } else {
+        // User is not logged in, open the login modal
+        this.openLoginModal();
+      }
+    });
+  }
+  
+
+
+  async openLoginModal() {
+    const modal = await this.modalController.create({
+      component: LoginComponent,
+      cssClass: 'modaldesign'
+    });
+    return await modal.present();
   }
 
 }

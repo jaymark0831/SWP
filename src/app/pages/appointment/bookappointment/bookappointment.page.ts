@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { IonInput, ModalController } from '@ionic/angular';
+import { AlertController, IonInput, ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
@@ -31,10 +31,17 @@ export class BookappointmentPage implements OnInit {
     private modalController: ModalController, 
     private route: ActivatedRoute,
     private authService: AuthService,
-    private formBuilder: FormBuilder
-    ) { }
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
+    private router: Router
+    ) {  }
 
     ngOnInit() {
+      // Check authentication and redirect if not authenticated
+      this.authService.isAuthenticated().subscribe((isAuthenticated) => {
+        console.log('Is user authenticated:', isAuthenticated);
+      });
+
       this.authService.getUserFirestoreData().subscribe((data: any) => {
         this.userFirestoreData = data;
         console.log('Firestore: ', this.userFirestoreData);
@@ -74,9 +81,6 @@ export class BookappointmentPage implements OnInit {
           });
         }
       });
-    
-      // Check authentication and redirect if not authenticated
-      this.authService.checkAuthentication();
     
       this.route.queryParams.subscribe(params => {
         this.dateSelected = params['date'];
@@ -127,15 +131,58 @@ export class BookappointmentPage implements OnInit {
       this.authService.storeAppointmentData(appointmentData)
         .then(() => {
           console.log('Appointment data stored successfully');
+          this.router.navigateByUrl('/menulogin/appointment');
+          this.alertController.create({
+            header: 'Successfully Book Appointment',
+            message: 'Check your Appointment',
+            cssClass: 'alertSuccess',
+            buttons: [
+              {
+                text: 'OK', 
+                handler: () => {
+                  console.log('OK');
+                }
+              }
+            ]
+          }).then(response => response.present());
+    
         })
         .catch((error: any) => {
           console.error('Error storing appointment data:', error);
+          this.alertController.create({
+            header: 'Booking Failed',
+            message: 'Error storing appointment data',
+            cssClass: 'alertError',
+            buttons: [
+              {
+                text: 'OK', 
+                handler: () => {
+                  console.log('OK');
+                }
+              }
+            ]
+          }).then(response => response.present());
         });
   
       // Perform further actions (e.g., submit form data to backend)
       // ...
     } else {
       console.log('Form is invalid');
+
+      this.alertController.create({
+        header: 'Booking Failed',
+        message: 'Form is Invalid',
+        cssClass: 'alertError',
+        buttons: [
+          {
+            text: 'OK', 
+            handler: () => {
+              console.log('OK');
+            }
+          }
+        ]
+      }).then(response => response.present());
+
   
       Object.keys(this.appointmentForm.controls).forEach((controlName) => {
         const control = this.appointmentForm.get(controlName);
@@ -144,9 +191,6 @@ export class BookappointmentPage implements OnInit {
     }
   }
   
-  
-  
-
   // only numbers for mobilenumber
   @ViewChild('ionInputEl', { static: true }) ionInputEl!: IonInput;
 
@@ -162,7 +206,4 @@ export class BookappointmentPage implements OnInit {
      */
     this.ionInputEl.value = this.inputModel = filteredValue;
   }
-
-  
-
 }

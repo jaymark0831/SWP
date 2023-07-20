@@ -69,3 +69,18 @@ ion-card-header.appointment-header {
     --color: var(--ion-color-light);
     --border-color: var(--ion-color-success);
 }
+
+@media(max-width: 768px) {
+    .list-appointment {
+        display:flex;
+        flex-direction: column;
+        align-items: start;
+    }
+}
+
+@media(max-width: 415px) {
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+    }
+}

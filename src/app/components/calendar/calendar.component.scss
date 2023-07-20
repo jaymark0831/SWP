@@ -45,3 +45,8 @@ ion-datetime {
     background-color: red;
   }
   
+  @media (max-width: 759px) {
+    ion-datetime{
+      margin: 0 auto;
+    }
+  }

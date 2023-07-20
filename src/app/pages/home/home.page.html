@@ -7,17 +7,17 @@
       <h1>Shepherd The Wedding Planner</h1>
       <h2>Your Perfect Moment Deserves A Perfect Place</h2>
       <p>We will ensure that your special day shines the brightest.</p>
-      <ion-button color="light" shape="round">
+      <ion-button color="light" shape="round" (click)="onBookAppointmentClick()">
         Book Your Appointment
       </ion-button>
 
     </div>
   </div>
-  <ion-grid class="ion-padding" fixed>
+  <ion-grid class="ion-padding" [fixed]="true">
 
     <!-- EVENTS -->
     <ion-row class="events">
-      <ion-col size="12">
+      <ion-col size="12" >
         <ion-col size="12" class="ion-text-center">
           <h1 class="title-h1">Events</h1>
           <h4>
@@ -27,7 +27,8 @@
             Whether you're hosting a wedding, a birthday party, or any other milestone event, <br> our dedicated team of expert planners is here to turn your vision into a reality. 
           </p>
         </ion-col>
-        <ion-col size="12" size-md="12" sizeXs="12">
+        <!-- min-width 768px -->
+        <ion-col size="12" size-md="12" sizeXs="12" class="largeEvent">
           <swiper-container #swiper
             class="ion-align-items-center"
             [slidesPerView]="3"
@@ -36,7 +37,22 @@
             [pagination]="{clickable: true, dynamicBullets: true}"
             effect="coverflow">
               <swiper-slide *ngFor="let image of slideImages">
-                <img [src]="image" alt="slider" width="362px" height="271">
+                <img [src]="image" alt="slider">
+              </swiper-slide>
+          </swiper-container>
+        </ion-col>
+
+        <!-- max width 768px -->
+        <ion-col size="12" size-md="12" sizeXs="12" class="smallEvent">
+          <swiper-container #swiper
+            class="ion-align-items-center"
+            [slidesPerView]="1"
+            [loop]="true"
+            [spaceBetween]="5"
+            [pagination]="{clickable: true, dynamicBullets: true}"
+            effect="coverflow">
+              <swiper-slide *ngFor="let image of slideImages">
+                <img [src]="image" alt="slider">
               </swiper-slide>
           </swiper-container>
         </ion-col>
@@ -70,9 +86,13 @@
               Q38F+C5Q Don Florencio Village, Gov. Antonio Carpio Rd, Batangas, 4200 Batangas
             </p>
           </ion-col>
-          <ion-col size="6" size-md="8" sizeXs="12">
+          <ion-col size="6" size-md="8" sizeXs="12" class="mapLarge">
             <!-- <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location"> -->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d564.2807602168228!2d121.0728418178167!3d13.766149557218776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd055167f734bb%3A0x27d57ad9269483e3!2sShepherd%20The%20Wedding%20Planner!5e0!3m2!1sen!2sph!4v1689220299582!5m2!1sen!2sph" width="730" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </ion-col>
+          <ion-col size="12" class="mapSmall">
+            <!-- <img src="https://taxreform.dof.gov.ph/wp-content/uploads/2019/07/no-thumbnail-medium.png" alt="Location"> -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.2121351199694!2d121.07039907500715!3d13.766077086627307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd055167f734bb%3A0x27d57ad9269483e3!2sShepherd%20The%20Wedding%20Planner!5e0!3m2!1sen!2sph!4v1689863844276!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>">
           </ion-col>
     </ion-row>
 

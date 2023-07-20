@@ -19,6 +19,14 @@
     }
 }
 
+ion-toolbar {
+    --background: rgba(173, 173, 173, 0.28);
+    --color: black;
+    --border-style: none;
+    --border-color: transparent;
+    --border-width: 0;
+}
+
 .active-item {
     border-bottom: 2px solid #F85930;
 }
@@ -39,7 +47,7 @@
 }
 
 ion-button {
-    --color: #fff;
+    --color: #000;
 }
 
 .bookbtn {

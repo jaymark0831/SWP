@@ -52,6 +52,7 @@
               </div>
             </ion-card-subtitle>
           </ion-card-header>
+          
           <ion-button (click)="cancelAppointment(appointment)"
           [class.danger]="appointment.appointmentData.status === 'cancelled'"
           [class.success]="appointment.appointmentData.status === 'completed'"
@@ -59,19 +60,19 @@
           {{appointment.appointmentData.status === 'cancelled' ? 'Cancelled' : (appointment.appointmentData.status === 'completed' ? 'Completed' : 'Cancel')}}
         </ion-button>
                  
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="ion-padding">
-    <ion-fab-button routerLink="/menulogin/bookappointment">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" class="ion-padding">
+  <ion-fab-button routerLink="/menulogin/bookappointment">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 
 
   <!-- footer -->
-  <app-footer></app-footer>
+  <!-- <app-footer></app-footer> -->
 
 </ion-content>
 
